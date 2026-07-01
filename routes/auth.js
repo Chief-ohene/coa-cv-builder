@@ -6,17 +6,36 @@ const User = require('../models/User');
 // SIGNUP
 router.post('/signup', async (req, res) => {
     try {
-        const { fullname, email, phone, password, confirmPassword } = req.body;
+        let { fullname, email, phone, password, confirmPassword, terms } = req.body;
 
-        // Check if passwords match
+        // Normalize email
+        email = (email || '').toLowerCase().trim();
+
+        // Basic required fields check
+        if (!fullname || !email || !phone || !password || !confirmPassword) {
+            return res.render('signup', {
+                error: 'Please fill in all required fields.',
+                success: null
+            });
+        }
+
+        // Terms checkbox (just in case browser validation is bypassed)
+        if (!terms) {
+            return res.render('signup', {
+                error: 'You must agree to the Terms of Service and Privacy Policy.',
+                success: null
+            });
+        }
+
+        // Password match
         if (password !== confirmPassword) {
-            return res.render('signup', { 
+            return res.render('signup', {
                 error: 'Passwords do not match.',
                 success: null
             });
         }
 
-        // Check password length
+        // Password length
         if (!password || password.length < 6) {
             return res.render('signup', {
                 error: 'Password must be at least 6 characters long.',
@@ -24,24 +43,16 @@ router.post('/signup', async (req, res) => {
             });
         }
 
-        // Disallow spaces in password
-        if (/\s/.test(password)) {
-            return res.render('signup', {
-                error: 'Password cannot contain spaces.',
-                success: null
-            });
-        }
-
-        // Check if user already exists
+        // Email already used?
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.render('signup', { 
+            return res.render('signup', {
                 error: 'Email already registered. Please login.',
                 success: null
             });
         }
 
-        // Create new user
+        // Create user
         const newUser = await User.create({
             fullname,
             email,
@@ -49,26 +60,33 @@ router.post('/signup', async (req, res) => {
             password
         });
 
-        // Create token
+        // Create JWT token
         const token = jwt.sign(
             { id: newUser._id },
             process.env.JWT_SECRET || 'coa-tech-secret',
             { expiresIn: '7d' }
         );
 
-        // Set cookie
+        // Set auth cookie
         res.cookie('token', token, {
             httpOnly: true,
             maxAge: 7 * 24 * 60 * 60 * 1000
         });
 
-        // Redirect to dashboard
-        res.redirect('/dashboard');
+        return res.redirect('/dashboard');
+    } catch (err) {
+        console.error('SIGNUP ERROR:', err);
 
-    } catch (error) {
-        console.error(error);
-        return res.render('signup', { 
-            error: 'Something went wrong. Please try again.',
+        // Duplicate email from Mongo (just in case)
+        if (err.code === 11000 && err.keyPattern && err.keyPattern.email) {
+            return res.render('signup', {
+                error: 'Email already registered. Please login.',
+                success: null
+            });
+        }
+
+        return res.render('signup', {
+            error: 'Something went wrong. Please check your inputs and try again.',
             success: null
         });
     }
@@ -77,45 +95,48 @@ router.post('/signup', async (req, res) => {
 // LOGIN
 router.post('/login', async (req, res) => {
     try {
-        const { email, password } = req.body;
+        let { email, password } = req.body;
 
-        // Check if user exists
+        email = (email || '').toLowerCase().trim();
+
+        if (!email || !password) {
+            return res.render('login', {
+                error: 'Please enter both email and password.',
+                success: null
+            });
+        }
+
         const user = await User.findOne({ email });
         if (!user) {
-            return res.render('login', { 
+            return res.render('login', {
                 error: 'Email not found. Please sign up.',
                 success: null
             });
         }
 
-        // Check password
         const isMatch = await user.comparePassword(password);
         if (!isMatch) {
-            return res.render('login', { 
+            return res.render('login', {
                 error: 'Incorrect password. Please try again.',
                 success: null
             });
         }
 
-        // Create token
         const token = jwt.sign(
             { id: user._id },
             process.env.JWT_SECRET || 'coa-tech-secret',
             { expiresIn: '7d' }
         );
 
-        // Set cookie
         res.cookie('token', token, {
             httpOnly: true,
             maxAge: 7 * 24 * 60 * 60 * 1000
         });
 
-        // Redirect to dashboard
-        res.redirect('/dashboard');
-
-    } catch (error) {
-        console.error(error);
-        return res.render('login', { 
+        return res.redirect('/dashboard');
+    } catch (err) {
+        console.error('LOGIN ERROR:', err);
+        return res.render('login', {
             error: 'Something went wrong. Please try again.',
             success: null
         });
