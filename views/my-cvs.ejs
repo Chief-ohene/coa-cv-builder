@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My CVs - C.O.A. CV BUILDER</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/cv-builder.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo-section">
+                    <img src="/images/logo.png" alt="C.O.A. TECH Logo" class="logo">
+                    <h1>C.O.A. CV BUILDER</h1>
+                </div>
+                <div class="nav-links">
+                    <a href="/dashboard">Dashboard</a>
+                    <a href="/auth/logout" class="btn-primary">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="cv-list-container">
+        <div class="cv-list-box">
+            <h2>My CVs</h2>
+            <p class="cv-subtitle">
+                View the CVs you’ve created with C.O.A. CV BUILDER.
+            </p>
+
+            <% if (!cvs || cvs.length === 0) { %>
+                <div class="cv-empty">
+                    <p>You have not created any CVs yet.</p>
+                    <a href="/cv/create" class="btn-submit">Create Your First CV →</a>
+                </div>
+            <% } else { %>
+                <div class="cv-list">
+                    <% cvs.forEach(function(cv) { %>
+                        <div class="cv-card">
+                            <div class="cv-card-header">
+                                <div class="cv-card-title">
+                                    <h3><%= cv.fullName || 'Untitled CV' %></h3>
+                                    <p class="cv-card-role"><%= cv.jobTitle || '' %></p>
+                                </div>
+                                <p class="cv-card-date">
+                                    Created: <%= new Date(cv.createdAt).toLocaleDateString() %>
+                                </p>
+                            </div>
+          <div class="cv-card-actions">
+    <a href="/cv/<%= cv._id %>" class="btn-small-secondary">View / PDF</a>
+    <a href="/cv/<%= cv._id %>/edit" class="btn-small">Edit</a>
+    <a href="/cover-letters/new/<%= cv._id %>" class="btn-small">Cover Letter</a>
+</div>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } %>
+        </div>
+    </section>
+</body>
+</html>

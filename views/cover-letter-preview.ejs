@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cover Letter - C.O.A. CV BUILDER</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/cv-preview.css">
+</head>
+<body>
+    <!-- HEADER (hidden on PDF print) -->
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo-section">
+                    <img src="/images/logo.png" alt="C.O.A. TECH Logo" class="logo">
+                    <h1>C.O.A. CV BUILDER</h1>
+                </div>
+                <div class="nav-links">
+                    <a href="/dashboard">Dashboard</a>
+                    <a href="/cv/my-cvs">My CVs</a>
+                    <a href="/cover-letters/my">My Cover Letters</a>
+                    <a href="/auth/logout" class="btn-primary">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- TOOLBAR (hidden on PDF print) -->
+    <section class="cv-preview-toolbar">
+        <div class="toolbar-inner">
+            <a href="/cover-letters/my" class="btn-secondary">← Back to My Cover Letters</a>
+            <button type="button" class="btn-submit" onclick="window.print()">Download as PDF</button>
+        </div>
+    </section>
+
+    <!-- COVER LETTER CONTENT -->
+    <main class="cv-preview-main">
+        <div class="resume-wrapper">
+            <% if (letter.cv) { %>
+                <!-- Sender info -->
+                <section class="resume-header">
+                    <h1 class="resume-name"><%= letter.cv.fullName || '' %></h1>
+                    <p class="resume-title"><%= letter.cv.jobTitle || '' %></p>
+                    <div class="resume-contact">
+                        <% if (letter.cv.location) { %>
+                            <span><%= letter.cv.location %></span>
+                        <% } %>
+                        <% if (letter.cv.email) { %>
+                            <span><%= letter.cv.email %></span>
+                        <% } %>
+                        <% if (letter.cv.phone) { %>
+                            <span><%= letter.cv.phone %></span>
+                        <% } %>
+                    </div>
+                </section>
+            <% } %>
+
+            <section class="resume-section">
+                <div class="section-content">
+                    <% if (letter.companyName || letter.positionTitle) { %>
+                        <p>
+                            <strong>Position:</strong> <%= letter.positionTitle || '' %><br>
+                            <strong>Company:</strong> <%= letter.companyName || '' %>
+                        </p>
+                        <br>
+                    <% } %>
+
+                    <p style="white-space: pre-line;"><%= letter.body %></p>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+</html>

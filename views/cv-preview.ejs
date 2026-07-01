@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= cv.fullName || 'CV Preview' %> - C.O.A. CV BUILDER</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/cv-preview.css">
+</head>
+<body>
+    <!-- HEADER (hidden on PDF print) -->
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo-section">
+                    <img src="/images/logo.png" alt="C.O.A. TECH Logo" class="logo">
+                    <h1>C.O.A. CV BUILDER</h1>
+                </div>
+                <div class="nav-links">
+                    <a href="/dashboard">Dashboard</a>
+                    <a href="/cv/my-cvs">My CVs</a>
+                    <a href="/auth/logout" class="btn-primary">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- TOOLBAR (hidden on PDF print) -->
+    <section class="cv-preview-toolbar">
+        <div class="toolbar-inner">
+            <a href="/cv/my-cvs" class="btn-secondary">← Back to My CVs</a>
+            <button type="button" class="btn-submit" onclick="window.print()">Download as PDF</button>
+        </div>
+    </section>
+
+    <!-- CV PREVIEW CONTENT -->
+    <main class="cv-preview-main">
+        <div class="resume-wrapper">
+            <!-- Header: Name + Title -->
+            <section class="resume-header">
+                <h1 class="resume-name"><%= cv.fullName || '' %></h1>
+                <p class="resume-title"><%= cv.jobTitle || '' %></p>
+                <div class="resume-contact">
+                    <% if (cv.location) { %>
+                        <span><%= cv.location %></span>
+                    <% } %>
+                    <% if (cv.email) { %>
+                        <span><%= cv.email %></span>
+                    <% } %>
+                    <% if (cv.phone) { %>
+                        <span><%= cv.phone %></span>
+                    <% } %>
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <% if (cv.summary) { %>
+            <section class="resume-section">
+                <h2 class="section-title">Professional Summary</h2>
+                <div class="section-content">
+                    <p><%= cv.summary %></p>
+                </div>
+            </section>
+            <% } %>
+
+            <!-- Experience -->
+            <% if (cv.experience && (cv.experience.company || cv.experience.details)) { %>
+            <section class="resume-section">
+                <h2 class="section-title">Work Experience</h2>
+                <div class="section-content">
+                    <% if (cv.experience.company || cv.experience.role) { %>
+                        <p>
+                            <strong><%= cv.experience.role || '' %></strong>
+                            <% if (cv.experience.company) { %>
+                                – <%= cv.experience.company %>
+                            <% } %>
+                        </p>
+                    <% } %>
+                    <% if (cv.experience.location || cv.experience.startYear || cv.experience.endYear) { %>
+                        <p>
+                            <% if (cv.experience.location) { %>
+                                <%= cv.experience.location %> •
+                            <% } %>
+                            <% if (cv.experience.startYear || cv.experience.endYear) { %>
+                                <%= cv.experience.startYear || '' %>
+                                <% if (cv.experience.startYear || cv.experience.endYear) { %> - <% } %>
+                                <%= cv.experience.endYear || '' %>
+                            <% } %>
+                        </p>
+                    <% } %>
+                    <% if (cv.experience.details) { %>
+                        <p><%= cv.experience.details %></p>
+                    <% } %>
+                </div>
+            </section>
+            <% } %>
+
+            <!-- Education -->
+            <% if (cv.education && (cv.education.school || cv.education.degree)) { %>
+            <section class="resume-section">
+                <h2 class="section-title">Education</h2>
+                <div class="section-content">
+                    <% if (cv.education.school || cv.education.degree) { %>
+                        <p>
+                            <strong><%= cv.education.degree || '' %></strong>
+                            <% if (cv.education.school) { %>
+                                – <%= cv.education.school %>
+                            <% } %>
+                        </p>
+                    <% } %>
+                    <% if (cv.education.location || cv.education.startYear || cv.education.endYear) { %>
+                        <p>
+                            <% if (cv.education.location) { %>
+                                <%= cv.education.location %> •
+                            <% } %>
+                            <% if (cv.education.startYear || cv.education.endYear) { %>
+                                <%= cv.education.startYear || '' %>
+                                <% if (cv.education.startYear || cv.education.endYear) { %> - <% } %>
+                                <%= cv.education.endYear || '' %>
+                            <% } %>
+                        </p>
+                    <% } %>
+                    <% if (cv.education.details) { %>
+                        <p><%= cv.education.details %></p>
+                    <% } %>
+                </div>
+            </section>
+            <% } %>
+
+            <!-- Skills -->
+            <% if (cv.skills) { %>
+            <section class="resume-section">
+                <h2 class="section-title">Skills</h2>
+                <div class="section-content">
+                    <p><%= cv.skills %></p>
+                </div>
+            </section>
+            <% } %>
+        </div>
+    </main>
+</body>
+</html>

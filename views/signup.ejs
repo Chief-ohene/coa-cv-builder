@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - C.O.A. CV BUILDER</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+    <!-- HEADER / NAVBAR -->
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo-section">
+                    <img src="/images/logo.png" alt="C.O.A. TECH Logo" class="logo">
+                    <h1>C.O.A. CV BUILDER</h1>
+                </div>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/login">Login</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- SIGNUP FORM -->
+    <section class="auth-container signup-container">
+        <div class="auth-box">
+            <h2>Create Your Account</h2>
+            <p>Set up your C.O.A. CV BUILDER account to start creating professional CVs.</p>
+
+            <!-- Error / Success Messages -->
+            <% if (error) { %>
+                <div class="message error"><%= error %></div>
+            <% } %>
+            <% if (success) { %>
+                <div class="message success"><%= success %></div>
+            <% } %>
+
+            <form action="/auth/signup" method="POST" class="auth-form">
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input 
+                        type="text" 
+                        id="fullname" 
+                        name="fullname" 
+                        placeholder="Enter your full name"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="your@email.com"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number (WhatsApp)</label>
+                    <input 
+                        type="tel" 
+                        id="phone" 
+                        name="phone" 
+                        placeholder="0537677748"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="At least 6 characters"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input 
+                        type="password" 
+                        id="confirmPassword" 
+                        name="confirmPassword" 
+                        placeholder="Re-enter your password"
+                        required
+                    >
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">
+                        I agree to the Terms of Service and Privacy Policy.
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-submit">Create Account</button>
+            </form>
+
+            <p class="auth-link">
+                Already have an account?
+                <a href="/login">Login here</a>
+            </p>
+        </div>
+    </section>
+
+    </body>
+</html>

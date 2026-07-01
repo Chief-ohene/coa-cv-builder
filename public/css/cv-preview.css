@@ -1,0 +1,141 @@
+body {
+    background: #f5f7fa;
+}
+
+/* Toolbar above the CV (hidden in PDF) */
+.cv-preview-toolbar {
+    background: #f5f7fa;
+    padding: 1rem 0;
+}
+
+.toolbar-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+/* Main CV content wrapper */
+.cv-preview-main {
+    padding: 0 1rem 2rem;
+}
+
+.resume-wrapper {
+    max-width: 900px;
+    margin: 0 auto 2rem;
+    background: #ffffff;
+    padding: 2.5rem 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #222;
+}
+
+/* Header (name, title, contact) */
+.resume-header {
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.resume-name {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.resume-title {
+    margin: 0.2rem 0 0.8rem;
+    font-size: 1rem;
+    color: #4b5563;
+}
+
+.resume-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.resume-contact span::before {
+    content: "• ";
+}
+
+.resume-contact span:first-child::before {
+    content: "";
+}
+
+/* Sections */
+.resume-section {
+    margin-top: 1.5rem;
+}
+
+.section-title {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    color: #006B3F;
+    margin: 0 0 0.4rem;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 0.3rem;
+}
+
+.section-content {
+    font-size: 0.95rem;
+    color: #374151;
+    line-height: 1.6;
+    white-space: pre-line; /* Respect line breaks from textarea */
+}
+
+.section-content p {
+    margin: 0.3rem 0;
+}
+
+/* Buttons reused from auth/dashboard */
+.btn-secondary {
+    display: inline-block;
+    padding: 0.7rem 1.4rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: #ffffff;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.btn-secondary:hover {
+    background: #f3f4f6;
+}
+
+/* PRINT STYLES – for PDF */
+@media print {
+    body {
+        background: #ffffff;
+    }
+
+    header,
+    .cv-preview-toolbar {
+        display: none !important;
+    }
+
+    .resume-wrapper {
+        box-shadow: none;
+        border-radius: 0;
+        margin: 0;
+        padding: 1rem 1.5rem;
+        max-width: 100%;
+    }
+
+    .resume-name {
+        font-size: 1.6rem;
+    }
+
+    .resume-title {
+        font-size: 0.95rem;
+    }
+}

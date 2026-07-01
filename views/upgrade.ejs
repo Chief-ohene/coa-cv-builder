@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgrade to Premium - C.O.A. CV BUILDER</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="dashboard-header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo-section">
+                    <img src="/images/logo.png" alt="C.O.A. TECH Logo" class="logo">
+                    <h1>C.O.A. CV BUILDER</h1>
+                </div>
+                <div class="nav-links">
+                    <a href="/dashboard">Dashboard</a>
+                    <a href="/auth/logout" class="btn-logout">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+            <section class="upgrade-section">
+                <h2>Upgrade to Premium</h2>
+                <p class="section-subtitle">
+                    Unlock the full power of C.O.A. CV BUILDER: unlimited cover letters, premium templates, ATS tools and more.
+                </p>
+
+                <% if (message) { %>
+                    <div class="message <%= message.includes('upgraded') ? 'success' : 'error' %>">
+                        <%= message %>
+                    </div>
+                <% } %>
+
+                <div class="pricing-plans">
+                    <div class="plan free-plan">
+                        <h3>Free</h3>
+                        <p class="price">GH₵ 0</p>
+                        <p class="period">Forever</p>
+                        <ul class="features-list">
+                            <li>✅ CV builder</li>
+                            <li>✅ PDF download</li>
+                            <li>✅ 1 cover letter / month</li>
+                            <li>❌ Premium CV templates</li>
+                            <li>❌ Unlimited cover letters</li>
+                            <li>❌ ATS score checker</li>
+                            <li>❌ Priority support</li>
+                        </ul>
+                    </div>
+
+                    <div class="plan premium-plan">
+                        <span class="badge">MOST POPULAR</span>
+                        <h3>Premium</h3>
+                        <p class="price">GH₵ 40</p>
+                        <p class="period">Per Month</p>
+                        <p class="yearly-option">or GH₵ 400/year (Save GH₵ 80)</p>
+                        <ul class="features-list">
+                            <li>✅ All Free features</li>
+                            <li>✅ 10+ premium CV templates</li>
+                            <li>✅ Unlimited cover letters</li>
+                            <li>✅ ATS score checker</li>
+                            <li>✅ Cover letter templates</li>
+                            <li>✅ Priority email support</li>
+                        </ul>
+
+                        <% if (user.isPremium) { %>
+                            <p><strong>You are already a Premium member.</strong></p>
+                            <p>Expiry: <%= user.premiumExpiry ? new Date(user.premiumExpiry).toLocaleDateString() : 'N/A' %></p>
+                        <% } else { %>
+                            <form action="/upgrade/paystack/initiate" method="POST">
+                                <button type="submit" class="btn-plan premium-btn">Pay with Paystack →</button>
+                            </form>
+                        <% } %>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+</html>

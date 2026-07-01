@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - C.O.A. CV BUILDER</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+    <!-- HEADER / NAVBAR -->
+    <header class="dashboard-header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo-section">
+                    <img src="/images/logo.png" alt="C.O.A. TECH Logo" class="logo">
+                    <h1>C.O.A. CV BUILDER</h1>
+                </div>
+                <div class="nav-links">
+                    <span class="user-greeting">Hello, <%= user.fullname.split(' ')[0] %></span>
+                    <a href="/">Home</a>
+                    <a href="/auth/logout" class="btn-logout">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+
+            <!-- WELCOME / ACCOUNT SUMMARY -->
+            <section class="welcome-section">
+                <div class="welcome-content">
+                    <h2>Your C.O.A. CV BUILDER Workspace</h2>
+                    <p>Manage your CVs, templates, and account details from one professional dashboard.</p>
+                </div>
+                <div class="account-badge">
+                    <% if (user.isPremium) { %>
+                        <span class="badge premium-badge">Premium Account</span>
+                        <% if (user.premiumExpiry) { %>
+                            <p class="badge-info">Active until: <%= new Date(user.premiumExpiry).toLocaleDateString() %></p>
+                        <% } %>
+                    <% } else { %>
+                        <span class="badge free-badge">Free Account</span>
+                        <p class="badge-info">Upgrade to unlock advanced features.</p>
+                    <% } %>
+                </div>
+            </section>
+
+            <!-- QUICK STATS -->
+            <section class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <span class="icon-abbr">CV</span>
+                    </div>
+                    <div class="stat-info">
+                        <p class="stat-label">CVs Created</p>
+                        <p class="stat-value"><%= user.cvs ? user.cvs.length : 0 %></p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <span class="icon-abbr">TYPE</span>
+                    </div>
+                    <div class="stat-info">
+                        <p class="stat-label">Account Type</p>
+                        <p class="stat-value"><%= user.isPremium ? 'Premium' : 'Free' %></p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <span class="icon-abbr">EM</span>
+                    </div>
+                    <div class="stat-info">
+                        <p class="stat-label">Email Address</p>
+                        <p class="stat-value stat-value-long"><%= user.email %></p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <span class="icon-abbr">PH</span>
+                    </div>
+                    <div class="stat-info">
+                        <p class="stat-label">Phone Number</p>
+                        <p class="stat-value"><%= user.phone %></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- QUICK ACTIONS -->
+            <section class="actions-section">
+                <h2>Quick Actions</h2>
+                <p class="section-subtitle">
+                    Start building or managing your CVs with these core tools.
+                </p>
+                <div class="action-cards">
+                    <div class="action-card primary-action">
+                        <div class="action-icon-circle">
+                            <span class="action-icon-text">NEW</span>
+                        </div>
+                        <h3>Create New CV</h3>
+                        <p>Build a professional CV in minutes using our guided, step-by-step builder.</p>
+                        <a href="/cv/create" class="btn-action">Start Building →</a>
+                    </div>
+
+                    <div class="action-card">
+                        <div class="action-icon-circle">
+                            <span class="action-icon-text">CVs</span>
+                        </div>
+                        <h3>My CVs</h3>
+                        <p>View, edit, and download all CVs saved in your account.</p>
+                        <a href="/cv/my-cvs" class="btn-action secondary-btn">View My CVs →</a>
+                    </div>
+
+                    <div class="action-card">
+                        <div class="action-icon-circle">
+                            <span class="action-icon-text">TPL</span>
+                        </div>
+                        <h3>Browse Templates</h3>
+                        <p>Explore available CV templates tailored specifically for Ghana and Africa.</p>
+                        <a href="/templates" class="btn-action secondary-btn">View Templates →</a>
+                    </div>
+
+                    <% if (!user.isPremium) { %>
+                    <div class="action-card premium-card">
+                        <div class="action-icon-circle premium-icon">
+                            <span class="action-icon-text">PRO</span>
+                        </div>
+                        <h3>Upgrade to Premium</h3>
+                        <p>Unlock 10+ premium templates, ATS tools, and cover letter builder.</p>
+                        <a href="/upgrade" class="btn-action premium-btn">Upgrade Now – GH₵ 40/month →</a>
+                    </div>
+                    <% } %>
+                </div>
+            </section>
+
+            <!-- ACCOUNT FEATURES -->
+            <section class="features-overview">
+                <h2>Your Account Features</h2>
+                <p class="section-subtitle">
+                    These are the tools and benefits currently available with your C.O.A. CV BUILDER account.
+                </p>
+                <div class="features-comparison">
+                    <div class="feature-item">
+                        <span class="feature-icon-circle active-icon">1</span>
+                        <p>1 Professional Template</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon-circle active-icon">CV</span>
+                        <p>Online CV Preview</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon-circle active-icon">PDF</span>
+                        <p>PDF Download (FREE)</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon-circle <%= user.isPremium ? 'active-icon' : 'inactive-icon' %>">T+</span>
+                        <p>10+ Premium Templates</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon-circle <%= user.isPremium ? 'active-icon' : 'inactive-icon' %>">ATS</span>
+                        <p>ATS Score Checker</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon-circle <%= user.isPremium ? 'active-icon' : 'inactive-icon' %>">CL</span>
+                        <p>Cover Letter Builder</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon-circle <%= user.isPremium ? 'active-icon' : 'inactive-icon' %>">IN</span>
+                        <p>LinkedIn Export</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon-circle <%= user.isPremium ? 'active-icon' : 'inactive-icon' %>">PR</span>
+                        <p>Priority Email Support</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- NOTE: No "Need Help" block and no big footer on dashboard -->
+        </div>
+    </main>
+</body>
+</html>
