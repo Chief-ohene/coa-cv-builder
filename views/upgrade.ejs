@@ -69,14 +69,14 @@
                             <li>✅ Priority email support</li>
                         </ul>
 
-                        <% if (user.isPremium) { %>
-                            <p><strong>You are already a Premium member.</strong></p>
-                            <p>Expiry: <%= user.premiumExpiry ? new Date(user.premiumExpiry).toLocaleDateString() : 'N/A' %></p>
-                        <% } else { %>
-                            <form action="/upgrade/paystack/initiate" method="POST">
-                                <button type="submit" class="btn-plan premium-btn">Pay with Paystack →</button>
-                            </form>
-                        <% } %>
+                       <% if (user.isPremium) { %>
+    <p><strong>You are already a Premium member.</strong></p>
+    <p>Expiry: <%= user.premiumExpiry ? new Date(user.premiumExpiry).toLocaleDateString() : 'N/A' %></p>
+<% } else { %>
+    <form action="/upgrade/paystack/initiate" method="POST" style="margin-top: 1rem;">
+        <button type="submit" class="btn-plan premium-btn">Pay with Paystack →</button>
+    </form>
+<% } %>
                     </div>
                 </div>
             </section>
