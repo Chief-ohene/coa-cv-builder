@@ -51,7 +51,7 @@
             <section class="stats-section">
                 <div class="stat-card">
                     <div class="stat-icon">
-                        <span class="icon-abbr">CV</span>
+                        <span>📄</span>
                     </div>
                     <div class="stat-info">
                         <p class="stat-label">CVs Created</p>
@@ -61,7 +61,7 @@
 
                 <div class="stat-card">
                     <div class="stat-icon">
-                        <span class="icon-abbr">TYPE</span>
+                        <span>⭐</span>
                     </div>
                     <div class="stat-info">
                         <p class="stat-label">Account Type</p>
@@ -71,7 +71,7 @@
 
                 <div class="stat-card">
                     <div class="stat-icon">
-                        <span class="icon-abbr">EM</span>
+                        <span>📧</span>
                     </div>
                     <div class="stat-info">
                         <p class="stat-label">Email Address</p>
@@ -81,7 +81,7 @@
 
                 <div class="stat-card">
                     <div class="stat-icon">
-                        <span class="icon-abbr">PH</span>
+                        <span>📱</span>
                     </div>
                     <div class="stat-info">
                         <p class="stat-label">Phone Number</p>
@@ -90,13 +90,14 @@
                 </div>
             </section>
 
-            <!-- QUICK ACTIONS -->
+            <!-- MAIN ACTIONS -->
             <section class="actions-section">
                 <h2>Quick Actions</h2>
                 <p class="section-subtitle">
                     Start building or managing your CVs with these core tools.
                 </p>
                 <div class="action-cards">
+                    <!-- Create New CV -->
                     <div class="action-card primary-action">
                         <div class="action-icon-circle">
                             <span class="action-icon-text">NEW</span>
@@ -106,6 +107,7 @@
                         <a href="/cv/create" class="btn-action">Start Building →</a>
                     </div>
 
+                    <!-- My CVs -->
                     <div class="action-card">
                         <div class="action-icon-circle">
                             <span class="action-icon-text">CVs</span>
@@ -115,6 +117,7 @@
                         <a href="/cv/my-cvs" class="btn-action secondary-btn">View My CVs →</a>
                     </div>
 
+                    <!-- Templates (placeholder for now) -->
                     <div class="action-card">
                         <div class="action-icon-circle">
                             <span class="action-icon-text">TPL</span>
@@ -124,15 +127,39 @@
                         <a href="/templates" class="btn-action secondary-btn">View Templates →</a>
                     </div>
 
+                    <!-- Upgrade to Premium -->
                     <% if (!user.isPremium) { %>
                     <div class="action-card premium-card">
                         <div class="action-icon-circle premium-icon">
                             <span class="action-icon-text">PRO</span>
                         </div>
                         <h3>Upgrade to Premium</h3>
-                        <p>Unlock 10+ premium templates, ATS tools, and cover letter builder.</p>
+                        <p>Unlock extra templates, unlimited cover letters, and priority support.</p>
                         <a href="/upgrade" class="btn-action premium-btn">Upgrade Now – GH₵ 40/month →</a>
                     </div>
+                    <% } %>
+
+                    <!-- ADMIN-ONLY ACTIONS -->
+                    <% if (typeof isAdmin !== 'undefined' && isAdmin) { %>
+                        <!-- Admin Panel -->
+                        <div class="action-card premium-card">
+                            <div class="action-icon-circle premium-icon">
+                                <span class="action-icon-text">ADM</span>
+                            </div>
+                            <h3>Admin Panel</h3>
+                            <p>View users, stats, and manage the platform from the admin dashboard.</p>
+                            <a href="/admin" class="btn-action premium-btn">Go to Admin →</a>
+                        </div>
+
+                        <!-- Reset User Password -->
+                        <div class="action-card">
+                            <div class="action-icon-circle">
+                                <span class="action-icon-text">RST</span>
+                            </div>
+                            <h3>Reset User Password</h3>
+                            <p>Reset passwords for users who contact you about login issues.</p>
+                            <a href="/admin/reset-password" class="btn-action secondary-btn">Reset Password →</a>
+                        </div>
                     <% } %>
                 </div>
             </section>
@@ -145,41 +172,61 @@
                 </p>
                 <div class="features-comparison">
                     <div class="feature-item">
-                        <span class="feature-icon-circle active-icon">1</span>
-                        <p>1 Professional Template</p>
+                        <span class="check active">✅</span>
+                        <span>CV builder with structured sections</span>
                     </div>
                     <div class="feature-item">
-                        <span class="feature-icon-circle active-icon">CV</span>
-                        <p>Online CV Preview</p>
+                        <span class="check active">✅</span>
+                        <span>Free PDF downloads</span>
                     </div>
                     <div class="feature-item">
-                        <span class="feature-icon-circle active-icon">PDF</span>
-                        <p>PDF Download (FREE)</p>
+                        <span class="check active">✅</span>
+                        <span>1 cover letter per month (Free)</span>
                     </div>
                     <div class="feature-item">
-                        <span class="feature-icon-circle <%= user.isPremium ? 'active-icon' : 'inactive-icon' %>">T+</span>
-                        <p>10+ Premium Templates</p>
+                        <span class="check <%= user.isPremium ? 'active' : 'inactive' %>">
+                            <%= user.isPremium ? '✅' : '🔒' %>
+                        </span>
+                        <span>10+ Premium templates (rolling out)</span>
                     </div>
                     <div class="feature-item">
-                        <span class="feature-icon-circle <%= user.isPremium ? 'active-icon' : 'inactive-icon' %>">ATS</span>
-                        <p>ATS Score Checker</p>
+                        <span class="check <%= user.isPremium ? 'active' : 'inactive' %>">
+                            <%= user.isPremium ? '✅' : '🔒' %>
+                        </span>
+                        <span>Unlimited cover letters</span>
                     </div>
                     <div class="feature-item">
-                        <span class="feature-icon-circle <%= user.isPremium ? 'active-icon' : 'inactive-icon' %>">CL</span>
-                        <p>Cover Letter Builder</p>
+                        <span class="check <%= user.isPremium ? 'active' : 'inactive' %>">
+                            <%= user.isPremium ? '✅' : '🔒' %>
+                        </span>
+                        <span>ATS-friendly formatting</span>
                     </div>
                     <div class="feature-item">
-                        <span class="feature-icon-circle <%= user.isPremium ? 'active-icon' : 'inactive-icon' %>">IN</span>
-                        <p>LinkedIn Export</p>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon-circle <%= user.isPremium ? 'active-icon' : 'inactive-icon' %>">PR</span>
-                        <p>Priority Email Support</p>
+                        <span class="check <%= user.isPremium ? 'active' : 'inactive' %>">
+                            <%= user.isPremium ? '✅' : '🔒' %>
+                        </span>
+                        <span>Priority support</span>
                     </div>
                 </div>
             </section>
 
-            <!-- NOTE: No "Need Help" block and no big footer on dashboard -->
+            <!-- SUPPORT SECTION -->
+            <section class="support-section">
+                <h2>Need Help?</h2>
+                <div class="support-cards">
+                    <div class="support-card">
+                        <h3>Email Support</h3>
+                        <p>coatechofficial@gmail.com</p>
+                        <a href="mailto:coatechofficial@gmail.com" class="btn-support">Send Email</a>
+                    </div>
+                    <div class="support-card">
+                        <h3>WhatsApp Support</h3>
+                        <p>+233 53 767 7748</p>
+                        <a href="https://wa.me/233537677748" target="_blank" class="btn-support">Chat on WhatsApp</a>
+                    </div>
+                </div>
+            </section>
+
         </div>
     </main>
 </body>
