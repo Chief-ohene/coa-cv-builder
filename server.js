@@ -33,6 +33,24 @@ const checkAuth = (req, res, next) => {
     }
 };
 
+// Middleware to restrict admin routes
+const checkAdmin = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.userId);
+        const adminEmail = (process.env.ADMIN_EMAIL || 'coatechofficial@gmail.com').toLowerCase();
+
+        if (!user || !user.email || user.email.toLowerCase() !== adminEmail) {
+            return res.status(403).send('Access denied');
+        }
+
+        req.currentUser = user;
+        next();
+    } catch (err) {
+        console.error('checkAdmin error:', err);
+        return res.status(500).send('Server error');
+    }
+};
+
 // Routes
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
@@ -40,10 +58,15 @@ app.use('/auth', authRoutes);
 const cvRoutes = require('./routes/cv');
 // All /cv/* routes require login
 app.use('/cv', checkAuth, cvRoutes);
+
 const coverLetterRoutes = require('./routes/coverLetters');
 app.use('/cover-letters', checkAuth, coverLetterRoutes);
+
 const upgradeRoutes = require('./routes/upgrade');
 app.use('/upgrade', checkAuth, upgradeRoutes);
+
+const adminRoutes = require('./routes/admin');
+app.use('/admin', checkAuth, checkAdmin, adminRoutes);
 
 // Public pages
 app.get('/', (req, res) => {
