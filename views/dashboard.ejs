@@ -51,7 +51,7 @@
             <section class="stats-section">
                 <div class="stat-card">
                     <div class="stat-icon">
-                        <span>📄</span>
+                        <span class="icon-abbr">CV</span>
                     </div>
                     <div class="stat-info">
                         <p class="stat-label">CVs Created</p>
@@ -61,7 +61,7 @@
 
                 <div class="stat-card">
                     <div class="stat-icon">
-                        <span>⭐</span>
+                        <span class="icon-abbr">TYPE</span>
                     </div>
                     <div class="stat-info">
                         <p class="stat-label">Account Type</p>
@@ -71,7 +71,7 @@
 
                 <div class="stat-card">
                     <div class="stat-icon">
-                        <span>📧</span>
+                        <span class="icon-abbr">EM</span>
                     </div>
                     <div class="stat-info">
                         <p class="stat-label">Email Address</p>
@@ -81,7 +81,7 @@
 
                 <div class="stat-card">
                     <div class="stat-icon">
-                        <span>📱</span>
+                        <span class="icon-abbr">PH</span>
                     </div>
                     <div class="stat-info">
                         <p class="stat-label">Phone Number</p>
@@ -172,38 +172,38 @@
                 </p>
                 <div class="features-comparison">
                     <div class="feature-item">
-                        <span class="check active">✅</span>
+                        <span class="check active">Included</span>
                         <span>CV builder with structured sections</span>
                     </div>
                     <div class="feature-item">
-                        <span class="check active">✅</span>
+                        <span class="check active">Included</span>
                         <span>Free PDF downloads</span>
                     </div>
                     <div class="feature-item">
-                        <span class="check active">✅</span>
+                        <span class="check active">Included</span>
                         <span>1 cover letter per month (Free)</span>
                     </div>
                     <div class="feature-item">
                         <span class="check <%= user.isPremium ? 'active' : 'inactive' %>">
-                            <%= user.isPremium ? '✅' : '🔒' %>
+                            <%= user.isPremium ? 'Included' : 'Premium only' %>
                         </span>
                         <span>10+ Premium templates (rolling out)</span>
                     </div>
                     <div class="feature-item">
                         <span class="check <%= user.isPremium ? 'active' : 'inactive' %>">
-                            <%= user.isPremium ? '✅' : '🔒' %>
+                            <%= user.isPremium ? 'Included' : 'Premium only' %>
                         </span>
                         <span>Unlimited cover letters</span>
                     </div>
                     <div class="feature-item">
                         <span class="check <%= user.isPremium ? 'active' : 'inactive' %>">
-                            <%= user.isPremium ? '✅' : '🔒' %>
+                            <%= user.isPremium ? 'Included' : 'Premium only' %>
                         </span>
                         <span>ATS-friendly formatting</span>
                     </div>
                     <div class="feature-item">
                         <span class="check <%= user.isPremium ? 'active' : 'inactive' %>">
-                            <%= user.isPremium ? '✅' : '🔒' %>
+                            <%= user.isPremium ? 'Included' : 'Premium only' %>
                         </span>
                         <span>Priority support</span>
                     </div>

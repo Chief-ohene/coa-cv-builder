@@ -105,7 +105,6 @@ app.post('/forgot-password', async (req, res) => {
             });
         }
 
-        // For now we do not send an email. We just confirm the account exists.
         return res.render('forgot-password', {
             error: null,
             success: 'We found your account. For now, please contact support at coatechofficial@gmail.com or WhatsApp +233 53 767 7748 to reset your password.'
@@ -135,7 +134,11 @@ app.get('/dashboard', checkAuth, async (req, res) => {
         if (!user) {
             return res.redirect('/login');
         }
-        res.render('dashboard', { user });
+
+        const adminEmail = (process.env.ADMIN_EMAIL || 'coatechofficial@gmail.com').toLowerCase();
+        const isAdmin = (user.email || '').toLowerCase() === adminEmail;
+
+        res.render('dashboard', { user, isAdmin });
     } catch (error) {
         console.error(error);
         return res.redirect('/login');
