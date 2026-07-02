@@ -26,10 +26,12 @@
 
     <main class="dashboard-main">
         <div class="dashboard-container">
-            <section class="upgrade-section">
-                <h2>Upgrade to Premium</h2>
-                <p class="section-subtitle">
-                    Unlock the full power of C.O.A. CV BUILDER: unlimited cover letters, premium templates, ATS tools and more.
+            <section class="upgrade-section" style="margin-top: 2rem; margin-bottom: 3rem;">
+                <h2 style="text-align: center; color: #006B3F; font-size: 2rem; margin-bottom: 0.5rem;">
+                    Upgrade to C.O.A. CV BUILDER Premium
+                </h2>
+                <p class="section-subtitle" style="text-align: center; max-width: 720px; margin: 0.5rem auto 2rem; color: #4b5563;">
+                    Unlock the full power of C.O.A. CV BUILDER: more templates, unlimited cover letters, and tools that help your CV stand out in Ghana and across Africa.
                 </p>
 
                 <% if (message) { %>
@@ -39,46 +41,93 @@
                 <% } %>
 
                 <div class="pricing-plans">
+
+                    <!-- FREE PLAN -->
                     <div class="plan free-plan">
                         <h3>Free</h3>
                         <p class="price">GH₵ 0</p>
                         <p class="period">Forever</p>
                         <ul class="features-list">
-                            <li>✅ CV builder</li>
-                            <li>✅ PDF download</li>
-                            <li>✅ 1 cover letter / month</li>
+                            <li>✅ CV builder with structured sections</li>
+                            <li>✅ Free PDF downloads</li>
+                            <li>✅ 1 cover letter per month</li>
+                            <li>✅ Basic templates</li>
                             <li>❌ Premium CV templates</li>
                             <li>❌ Unlimited cover letters</li>
                             <li>❌ ATS score checker</li>
                             <li>❌ Priority support</li>
                         </ul>
+                        <p style="font-size: 0.85rem; color: #6b7280;">
+                            Best for trying out the platform and creating a basic professional CV.
+                        </p>
                     </div>
 
+                    <!-- PREMIUM PLAN -->
                     <div class="plan premium-plan">
                         <span class="badge">MOST POPULAR</span>
                         <h3>Premium</h3>
                         <p class="price">GH₵ 40</p>
                         <p class="period">Per Month</p>
                         <p class="yearly-option">or GH₵ 400/year (Save GH₵ 80)</p>
+
                         <ul class="features-list">
                             <li>✅ All Free features</li>
-                            <li>✅ 10+ premium CV templates</li>
+                            <li>✅ 10+ professional CV templates (coming as we add more)</li>
                             <li>✅ Unlimited cover letters</li>
-                            <li>✅ ATS score checker</li>
-                            <li>✅ Cover letter templates</li>
-                            <li>✅ Priority email support</li>
+                            <li>✅ ATS-friendly structure for modern hiring systems</li>
+                            <li>✅ Priority email / WhatsApp support</li>
+                            <li>✅ Early access to new features</li>
                         </ul>
 
-                       <% if (user.isPremium) { %>
-    <p><strong>You are already a Premium member.</strong></p>
-    <p>Expiry: <%= user.premiumExpiry ? new Date(user.premiumExpiry).toLocaleDateString() : 'N/A' %></p>
-<% } else { %>
-    <form action="/upgrade/paystack/initiate" method="POST" style="margin-top: 1rem;">
-        <button type="submit" class="btn-plan premium-btn">Pay with Paystack →</button>
-    </form>
-<% } %>
+                        <% if (user.isPremium) { %>
+                            <p style="margin-top: 1rem;">
+                                <strong>You are already a Premium member.</strong>
+                            </p>
+                            <p>
+                                Expiry:
+                                <%= user.premiumExpiry ? new Date(user.premiumExpiry).toLocaleDateString() : 'N/A' %>
+                            </p>
+                        <% } else { %>
+                            <form action="/upgrade/paystack/initiate" method="POST" style="margin-top: 1.2rem;">
+                                <button type="submit" class="btn-plan premium-btn">Pay with Paystack →</button>
+                            </form>
+                            <p style="font-size: 0.85rem; color: #6b7280; margin-top: 0.6rem;">
+                                Secure payment via Paystack (cards & Mobile Money).
+                            </p>
+                        <% } %>
                     </div>
+
                 </div>
+
+                <!-- WHY UPGRADE SECTION -->
+                <section style="margin-top: 3rem;">
+                    <h3 style="text-align: center; color: #006B3F; font-size: 1.6rem; margin-bottom: 1rem;">
+                        Why professionals upgrade to Premium
+                    </h3>
+                    <div style="max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+                        <div class="about-card">
+                            <h3>More Professional Options</h3>
+                            <p>
+                                Premium gives you access to a growing library of CV templates designed for corporate, tech,
+                                finance, and other roles across Ghana and Africa.
+                            </p>
+                        </div>
+                        <div class="about-card">
+                            <h3>Unlimited Cover Letters</h3>
+                            <p>
+                                Apply confidently to more roles with tailored cover letters for each opportunity, without
+                                hitting the free monthly limit.
+                            </p>
+                        </div>
+                        <div class="about-card">
+                            <h3>Priority Support</h3>
+                            <p>
+                                Get faster help via email or WhatsApp when you need to tweak your CV or resolve an issue on
+                                your account.
+                            </p>
+                        </div>
+                    </div>
+                </section>
             </section>
         </div>
     </main>
