@@ -56,7 +56,6 @@ const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
 
 const cvRoutes = require('./routes/cv');
-// All /cv/* routes require login
 app.use('/cv', checkAuth, cvRoutes);
 
 const coverLetterRoutes = require('./routes/coverLetters');
@@ -79,6 +78,15 @@ app.get('/signup', (req, res) => {
 
 app.get('/login', (req, res) => {
     res.render('login', { error: null, success: null });
+});
+
+// Legal pages
+app.get('/privacy', (req, res) => {
+    res.render('privacy');
+});
+
+app.get('/terms', (req, res) => {
+    res.render('terms');
 });
 
 // Protected dashboard
