@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - C.O.A. CV BUILDER</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="dashboard-header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo-section">
+                    <img src="/images/logo.png" alt="C.O.A. TECH Logo" class="logo">
+                    <h1>C.O.A. CV BUILDER - Admin</h1>
+                </div>
+                <div class="nav-links">
+                    <span class="user-greeting">Admin: <%= admin.fullname %></span>
+                    <a href="/dashboard">User Dashboard</a>
+                    <a href="/auth/logout" class="btn-logout">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+            <!-- Stats -->
+            <section class="stats-section" style="margin-top: 2rem;">
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-info">
+                        <p class="stat-label">Total Users</p>
+                        <p class="stat-value"><%= stats.totalUsers %></p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-info">
+                        <p class="stat-label">Premium Users</p>
+                        <p class="stat-value"><%= stats.premiumUsers %></p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🆓</div>
+                    <div class="stat-info">
+                        <p class="stat-label">Free Users</p>
+                        <p class="stat-value"><%= stats.freeUsers %></p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📄</div>
+                    <div class="stat-info">
+                        <p class="stat-label">Total CVs</p>
+                        <p class="stat-value"><%= stats.totalCVs %></p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✉️</div>
+                    <div class="stat-info">
+                        <p class="stat-label">Total Cover Letters</p>
+                        <p class="stat-value"><%= stats.totalCoverLetters %></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Latest users -->
+            <section style="margin: 3rem 0;">
+                <h2 style="color: #006B3F; margin-bottom: 1rem;">Latest Users</h2>
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; background: #ffffff; border-radius: 10px; overflow: hidden;">
+                        <thead>
+                            <tr style="background: #f3f4f6;">
+                                <th style="padding: 0.8rem; text-align: left; font-size: 0.85rem;">Name</th>
+                                <th style="padding: 0.8rem; text-align: left; font-size: 0.85rem;">Email</th>
+                                <th style="padding: 0.8rem; text-align: left; font-size: 0.85rem;">Phone</th>
+                                <th style="padding: 0.8rem; text-align: left; font-size: 0.85rem;">Account Type</th>
+                                <th style="padding: 0.8rem; text-align: left; font-size: 0.85rem;">Joined</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% latestUsers.forEach(function(u) { %>
+                                <tr style="border-top: 1px solid #e5e7eb;">
+                                    <td style="padding: 0.8rem; font-size: 0.9rem;"><%= u.fullname %></td>
+                                    <td style="padding: 0.8rem; font-size: 0.9rem;"><%= u.email %></td>
+                                    <td style="padding: 0.8rem; font-size: 0.9rem;"><%= u.phone %></td>
+                                    <td style="padding: 0.8rem; font-size: 0.9rem;"><%= u.isPremium ? 'Premium' : 'Free' %></td>
+                                    <td style="padding: 0.8rem; font-size: 0.9rem;"><%= new Date(u.createdAt).toLocaleDateString() %></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+</html>
