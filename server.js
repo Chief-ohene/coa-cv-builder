@@ -80,6 +80,45 @@ app.get('/login', (req, res) => {
     res.render('login', { error: null, success: null });
 });
 
+// Forgot password pages
+app.get('/forgot-password', (req, res) => {
+    res.render('forgot-password', { error: null, success: null });
+});
+
+app.post('/forgot-password', async (req, res) => {
+    try {
+        let { email } = req.body;
+        email = (email || '').toLowerCase().trim();
+
+        if (!email) {
+            return res.render('forgot-password', {
+                error: 'Please enter your email address.',
+                success: null
+            });
+        }
+
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.render('forgot-password', {
+                error: 'We could not find an account with that email. Please check and try again.',
+                success: null
+            });
+        }
+
+        // For now we do not send an email. We just confirm the account exists.
+        return res.render('forgot-password', {
+            error: null,
+            success: 'We found your account. For now, please contact support at coatechofficial@gmail.com or WhatsApp +233 53 767 7748 to reset your password.'
+        });
+    } catch (err) {
+        console.error('FORGOT PASSWORD ERROR:', err);
+        return res.render('forgot-password', {
+            error: 'Something went wrong. Please try again or contact support.',
+            success: null
+        });
+    }
+});
+
 // Legal pages
 app.get('/privacy', (req, res) => {
     res.render('privacy');
