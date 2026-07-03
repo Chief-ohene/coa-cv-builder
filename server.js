@@ -79,6 +79,10 @@ app.get('/signup', (req, res) => {
 app.get('/login', (req, res) => {
     res.render('login', { error: null, success: null });
 });
+// Templates page (placeholder)
+app.get('/templates', (req, res) => {
+    res.render('templates');
+});
 
 // Forgot password pages
 app.get('/forgot-password', (req, res) => {
