@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/dashboard.css">
 </head>
 <body>
+
     <!-- HEADER / NAVBAR -->
     <header class="dashboard-header">
         <nav class="navbar">
@@ -25,35 +26,74 @@
         </nav>
     </header>
 
+    <!-- MAIN CONTENT -->
     <main class="dashboard-main">
         <div class="dashboard-container">
+
             <section style="margin: 3rem 0;">
-                <h2 style="color: #006B3F; font-size: 2rem; margin-bottom: 0.5rem;">CV Templates</h2>
+                <h2 style="color: #006B3F; font-size: 2rem; margin-bottom: 0.5rem;">
+                    CV Templates
+                </h2>
+
                 <p style="color: #4b5563; margin-bottom: 1.5rem;">
-                    We are gradually rolling out multiple professional CV layouts. For now, all CVs use our core
-                    professional template, and Premium users will get access to additional layouts as we publish them.
+                    C.O.A. CV BUILDER offers multiple professional layouts for your CV.
+                    All users have access to our Professional Classic layout.
+                    Premium users can also use our Modern layout when previewing and downloading CVs.
                 </p>
 
                 <div class="features-comparison">
+
+                    <!-- CLASSIC TEMPLATE -->
                     <div class="feature-item">
-                        <span class="check active">Available</span>
-                        <span><strong>Professional Classic</strong> – clean, structured CV for most roles (currently in use).</span>
+                        <span class="check active">
+                            Available (Free & Premium)
+                        </span>
+                        <span>
+                            <strong>Professional Classic</strong> – clean, structured CV
+                            suitable for most job applications. This is the default layout
+                            used when you preview or download your CV.
+                        </span>
                     </div>
+
+                    <!-- MODERN TEMPLATE -->
                     <div class="feature-item">
-                        <span class="check inactive">Coming soon</span>
-                        <span><strong>Modern Corporate</strong> – a more compact layout for senior and corporate roles.</span>
+                        <span class="check <%= (typeof user !== 'undefined' && user.isPremium) ? 'active' : 'inactive' %>">
+                            <%= (typeof user !== 'undefined' && user.isPremium) ? 'Available (Premium)' : 'Premium Only' %>
+                        </span>
+                        <span>
+                            <strong>Modern Layout</strong> – a two-column modern design
+                            that highlights contact details and skills on the left,
+                            with experience and education on the right.
+                            <% if (!(typeof user !== 'undefined' && user.isPremium)) { %>
+                                Upgrade to Premium to unlock this template.
+                            <% } %>
+                        </span>
                     </div>
+
+                    <!-- FUTURE TEMPLATE -->
                     <div class="feature-item">
-                        <span class="check inactive">Coming soon</span>
-                        <span><strong>Tech / Projects</strong> – layout that highlights skills, projects, and technologies.</span>
+                        <span class="check inactive">
+                            Coming Soon
+                        </span>
+                        <span>
+                            <strong>Tech / Projects Layout</strong> – optimized for
+                            software developers and technical roles, focusing on
+                            projects, technologies, and certifications.
+                        </span>
                     </div>
+
                 </div>
 
-                <p style="margin-top: 1.5rem; color: #6b7280;">
-                    As we add more templates, you will be able to choose which layout to use when previewing or downloading your CV.
+                <p style="margin-top: 2rem; color: #6b7280;">
+                    To switch templates for a CV:
+                    Go to <strong>My CVs</strong> → Click <strong>View / PDF</strong> →
+                    Choose your preferred template at the top of the preview screen.
                 </p>
+
             </section>
+
         </div>
     </main>
+
 </body>
 </html>
