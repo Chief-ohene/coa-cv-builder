@@ -69,7 +69,6 @@ router.post('/create', async (req, res) => {
             details: expDetails
         };
 
-        // Create CV document
         const cv = await CV.create({
             user: req.userId,
             fullName,
@@ -108,8 +107,7 @@ router.post('/create', async (req, res) => {
 router.get('/my-cvs', async (req, res) => {
     try {
         const user = await User.findById(req.userId);
-        const cvs = await CV.find({ user: req.userId })
-            .sort({ createdAt: -1 });
+        const cvs = await CV.find({ user: req.userId }).sort({ createdAt: -1 });
 
         return res.render('my-cvs', { user, cvs });
     } catch (err) {
@@ -213,7 +211,7 @@ router.post('/:id/edit', async (req, res) => {
     }
 });
 
-// GET /cv/:id – preview a single CV
+// GET /cv/:id – preview with template selection
 router.get('/:id', async (req, res) => {
     try {
         const user = await User.findById(req.userId);
@@ -223,7 +221,24 @@ router.get('/:id', async (req, res) => {
             return res.redirect('/cv/my-cvs');
         }
 
-        return res.render('cv-preview', { user, cv });
+        const isPremium = user.isPremium;
+        const selectedTemplate = (req.query.tpl === 'modern' && isPremium) ? 'modern' : 'classic';
+
+        if (selectedTemplate === 'modern') {
+            return res.render('cv-preview-modern', {
+                user,
+                cv,
+                isPremium,
+                selectedTemplate
+            });
+        } else {
+            return res.render('cv-preview', {
+                user,
+                cv,
+                isPremium,
+                selectedTemplate
+            });
+        }
     } catch (err) {
         console.error(err);
         return res.redirect('/cv/my-cvs');

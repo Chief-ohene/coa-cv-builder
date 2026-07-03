@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= cv.fullName || 'CV Preview' %> - C.O.A. CV BUILDER</title>
+    <title><%= cv.fullName || 'CV Preview' %> - C.O.A. CV BUILDER (Classic)</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/cv-preview.css">
 </head>
@@ -29,11 +29,25 @@
     <section class="cv-preview-toolbar">
         <div class="toolbar-inner">
             <a href="/cv/my-cvs" class="btn-secondary">← Back to My CVs</a>
-            <button type="button" class="btn-submit" onclick="window.print()">Download as PDF</button>
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <span style="font-size: 0.85rem; color: #6b7280;">
+                    Viewing: <strong>Classic Template</strong>
+                </span>
+                <% if (isPremium) { %>
+                    <a href="/cv/<%= cv._id %>?tpl=modern" class="btn-secondary" style="font-size: 0.85rem;">
+                        Use Modern Template
+                    </a>
+                <% } else { %>
+                    <span style="font-size: 0.8rem; color: #9ca3af;">
+                        (Modern template available for Premium)
+                    </span>
+                <% } %>
+                <button type="button" class="btn-submit" onclick="window.print()">Download as PDF</button>
+            </div>
         </div>
     </section>
 
-    <!-- CV PREVIEW CONTENT -->
+    <!-- CV PREVIEW CONTENT – CLASSIC LAYOUT -->
     <main class="cv-preview-main">
         <div class="resume-wrapper">
             <!-- Header: Name + Title -->
