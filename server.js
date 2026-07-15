@@ -79,9 +79,15 @@ app.get('/signup', (req, res) => {
 app.get('/login', (req, res) => {
     res.render('login', { error: null, success: null });
 });
-// Templates page (placeholder)
-app.get('/templates', (req, res) => {
-    res.render('templates');
+// Templates page (requires login so we know if user is premium)
+app.get('/templates', checkAuth, async (req, res) => {
+    try {
+        const user = await User.findById(req.userId);
+        return res.render('templates', { user });
+    } catch (err) {
+        console.error('TEMPLATES ERROR:', err);
+        return res.redirect('/dashboard');
+    }
 });
 
 // Forgot password pages
