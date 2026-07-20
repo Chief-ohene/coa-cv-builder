@@ -1,37 +1,181 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Compact Template</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%= cv.fullName %> - Compact Template</title>
+
+<link rel="stylesheet" href="/css/style.css">
+
+<style>
+body {
+    background: #f3f4f6;
+    font-family: 'Georgia', serif;
+}
+
+.toolbar {
+    max-width: 820px;
+    margin: 30px auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-download {
+    background: #00c853;
+    color: #ffffff;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-download:hover {
+    background: #00b94a;
+    transform: translateY(-2px);
+}
+
+.btn-back {
+    background: #fff7e6;
+    color: #d97706;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid #fbbf24;
+    transition: 0.3s ease;
+}
+
+.btn-back:hover {
+    background: #fbbf24;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.compact-wrapper {
+    max-width: 820px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 60px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    line-height: 1.6;
+}
+
+.compact-header {
+    border-bottom: 2px solid #2563eb;
+    padding-bottom: 12px;
+    margin-bottom: 30px;
+}
+
+.compact-header h1 {
+    font-size: 30px;
+    margin-bottom: 6px;
+}
+
+.compact-contact {
+    font-size: 14px;
+    color: #555;
+}
+
+.compact-section {
+    margin-bottom: 32px;
+}
+
+.compact-section h3 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 6px;
+    margin-bottom: 14px;
+}
+
+.compact-section p {
+    font-size: 14px;
+    color: #333;
+}
+
+.compact-dates {
+    float: right;
+    font-size: 13px;
+    color: #666;
+}
+
+.clear { clear: both; }
+
+@media print {
+    body { background: #fff; }
+    .toolbar { display: none; }
+    .compact-wrapper {
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+    }
+}
+</style>
 </head>
+
 <body>
 
+<div class="toolbar">
+<a href="/cv/my-cvs" class="btn-back">← Back to My CVs</a>
+<button class="btn-download" onclick="window.print()">Download PDF</button>
+</div>
+
+<div class="compact-wrapper">
+
+<div class="compact-header">
 <h1><%= cv.fullName %></h1>
-<p><%= cv.email %> | <%= cv.phone %> | <%= cv.location %></p>
+<div class="compact-contact">
+<%= cv.email %> | <%= cv.phone %> | <%= cv.location %>
+</div>
+</div>
 
 <% if (cv.summary) { %>
-<h2>Summary</h2>
+<div class="compact-section">
+<h3>Professional Summary</h3>
 <p><%= cv.summary %></p>
+</div>
 <% } %>
 
 <% if (cv.experience && cv.experience.company) { %>
-<h2>Experience</h2>
-<p><strong><%= cv.experience.role %></strong> – <%= cv.experience.company %></p>
+<div class="compact-section">
+<h3>Work Experience</h3>
+<p>
+<strong><%= cv.experience.role %></strong> – <%= cv.experience.company %>
+<span class="compact-dates">
+<%= cv.experience.startYear %> - <%= cv.experience.endYear %>
+</span>
+</p>
+<div class="clear"></div>
 <p><%= cv.experience.details %></p>
+</div>
 <% } %>
 
 <% if (cv.education && cv.education.school) { %>
-<h2>Education</h2>
-<p><strong><%= cv.education.degree %></strong> – <%= cv.education.school %></p>
+<div class="compact-section">
+<h3>Education</h3>
+<p>
+<strong><%= cv.education.degree %></strong> – <%= cv.education.school %>
+<span class="compact-dates">
+<%= cv.education.startYear %> - <%= cv.education.endYear %>
+</span>
+</p>
+<div class="clear"></div>
 <p><%= cv.education.details %></p>
+</div>
 <% } %>
 
 <% if (cv.skills) { %>
-<h2>Skills</h2>
+<div class="compact-section">
+<h3>Skills</h3>
 <p><%= cv.skills %></p>
+</div>
 <% } %>
 
-<button onclick="window.print()">Download PDF</button>
+</div>
 
 </body>
 </html>
