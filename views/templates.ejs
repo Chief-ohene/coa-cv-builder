@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CV Templates - C.O.A. CV BUILDER</title>
+<title>Choose a CV Template | C.O.A. CV BUILDER</title>
 
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/dashboard.css">
@@ -11,13 +11,19 @@
 <style>
 .templates-wrapper {
     max-width: 1150px;
-    margin: 60px auto;
+    margin: 70px auto;
     padding: 20px;
 }
 
 .templates-title {
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.templates-subtitle {
+    font-size: 15px;
+    color: #6b7280;
     margin-bottom: 50px;
 }
 
@@ -30,7 +36,7 @@
 .template-card {
     background: #ffffff;
     border-radius: 18px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+    box-shadow: 0 14px 35px rgba(0,0,0,0.06);
     overflow: hidden;
     transition: transform 0.35s ease, box-shadow 0.35s ease;
     display: flex;
@@ -39,11 +45,11 @@
 
 .template-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 20px 45px rgba(0,0,0,0.12);
+    box-shadow: 0 22px 50px rgba(0,0,0,0.12);
 }
 
 .template-preview {
-    height: 230px;
+    height: 240px;
     background: #f9fafb;
     border-top: 5px solid #00c853;
     display: flex;
@@ -60,7 +66,7 @@
 }
 
 .template-body {
-    padding: 28px;
+    padding: 30px;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -69,14 +75,21 @@
 .template-name {
     font-size: 20px;
     font-weight: 700;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
 }
 
-.template-description {
+.template-bestfor {
+    font-size: 13px;
+    font-weight: 600;
+    color: #00c853;
+    margin-bottom: 15px;
+}
+
+.template-benefits {
     font-size: 14px;
     color: #6b7280;
-    margin-bottom: 22px;
     line-height: 1.6;
+    margin-bottom: 25px;
     flex: 1;
 }
 
@@ -94,6 +107,34 @@
 
 .template-actions {
     margin-top: auto;
+}
+
+.btn-template {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding: 12px 0;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-active {
+    background: #00c853;
+    color: #fff;
+}
+
+.btn-active:hover {
+    background: #00b94a;
+}
+
+.btn-upgrade {
+    background: #111;
+    color: #fff;
+}
+
+.btn-upgrade:hover {
+    background: #333;
 }
 </style>
 </head>
@@ -118,7 +159,10 @@
 
 <div class="templates-wrapper">
 
-<div class="templates-title">Choose a CV Template</div>
+<div class="templates-title">Choose the Right CV Template</div>
+<div class="templates-subtitle">
+Select a layout that best matches your career goals and industry.
+</div>
 
 <div class="templates-grid">
 
@@ -130,17 +174,20 @@
 <p style="font-size:11px;">john@email.com | 0240000000 | Accra</p>
 <hr style="margin:8px 0;">
 <p style="font-size:11px; font-weight:bold;">Professional Summary</p>
-<p style="font-size:10px;">Results-driven professional with strong experience...</p>
+<p style="font-size:10px;">Clear, structured and easy-to-read format.</p>
 </div>
 </div>
 
 <div class="template-body">
 <div class="template-name">Professional Classic</div>
-<div class="template-description">
-Clean and structured layout suitable for internships, NSS placements and most job applications.
+<div class="template-bestfor">Best for internships & NSS</div>
+<div class="template-benefits">
+• Clean structure  
+• ATS-friendly formatting  
+• Easy for recruiters to scan  
 </div>
 <div class="template-actions">
-<a href="/cv/my-cvs" class="btn-primary">Use Template</a>
+<a href="/cv/my-cvs" class="btn-template btn-active">Use Template</a>
 </div>
 </div>
 </div>
@@ -162,16 +209,19 @@ Clean and structured layout suitable for internships, NSS placements and most jo
 
 <div class="template-body">
 <div class="template-name">Modern Layout</div>
-<div class="template-description">
-Two-column modern layout ideal for tech, creative and forward-thinking corporate roles.
+<div class="template-bestfor">Best for tech & creative roles</div>
+<div class="template-benefits">
+• Two-column layout  
+• Strong visual hierarchy  
+• Modern professional feel  
 </div>
 
 <div class="template-actions">
 <% if (user && user.isPremium) { %>
-<a href="/cv/my-cvs" class="btn-primary">Use Template</a>
+<a href="/cv/my-cvs" class="btn-template btn-active">Use Template</a>
 <% } else { %>
 <div class="premium-tag">Premium</div>
-<a href="/upgrade" class="btn-secondary">Upgrade to Use</a>
+<a href="/upgrade" class="btn-template btn-upgrade">Upgrade to Use</a>
 <% } %>
 </div>
 </div>
@@ -182,7 +232,7 @@ Two-column modern layout ideal for tech, creative and forward-thinking corporate
 <div class="template-preview">
 <div style="width:85%; background:#fff; padding:16px; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
 <p style="font-size:12px; font-weight:bold;">John Doe</p>
-<p style="font-size:10px;">Corporate focused summary...</p>
+<p style="font-size:10px;">Corporate-focused summary...</p>
 <hr style="margin:6px 0;">
 <p style="font-size:11px; font-weight:bold;">Experience</p>
 <p style="font-size:10px;">Senior Analyst</p>
@@ -191,16 +241,19 @@ Two-column modern layout ideal for tech, creative and forward-thinking corporate
 
 <div class="template-body">
 <div class="template-name">Compact Professional</div>
-<div class="template-description">
-Single-column tight layout best for banking, consulting and executive-level roles.
+<div class="template-bestfor">Best for corporate & banking</div>
+<div class="template-benefits">
+• Tighter professional spacing  
+• Clean single-column format  
+• Ideal for executive roles  
 </div>
 
 <div class="template-actions">
 <% if (user && user.isPremium) { %>
-<a href="/cv/my-cvs" class="btn-primary">Use Template</a>
+<a href="/cv/my-cvs" class="btn-template btn-active">Use Template</a>
 <% } else { %>
 <div class="premium-tag">Premium</div>
-<a href="/upgrade" class="btn-secondary">Upgrade to Use</a>
+<a href="/upgrade" class="btn-template btn-upgrade">Upgrade to Use</a>
 <% } %>
 </div>
 </div>
