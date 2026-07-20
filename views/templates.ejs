@@ -10,74 +10,86 @@
 
 <style>
 .templates-wrapper {
-    max-width: 1100px;
+    max-width: 1150px;
     margin: 60px auto;
     padding: 20px;
 }
 
 .templates-title {
-    font-size: 26px;
-    font-weight: 600;
-    margin-bottom: 40px;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 50px;
 }
 
 .templates-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 45px;
 }
 
 .template-card {
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
     overflow: hidden;
-    transition: 0.3s ease;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
     display: flex;
     flex-direction: column;
 }
 
 .template-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 45px rgba(0,0,0,0.12);
 }
 
 .template-preview {
-    height: 220px;
-    background: #f3f4f6;
+    height: 230px;
+    background: #f9fafb;
+    border-top: 5px solid #00c853;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.template-preview > div {
+    transition: transform 0.35s ease;
+}
+
+.template-card:hover .template-preview > div {
+    transform: scale(0.92);
+}
+
 .template-body {
-    padding: 25px;
+    padding: 28px;
     flex: 1;
     display: flex;
     flex-direction: column;
 }
 
 .template-name {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
 }
 
 .template-description {
     font-size: 14px;
     color: #6b7280;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
+    line-height: 1.6;
     flex: 1;
 }
 
 .premium-tag {
     display: inline-block;
     font-size: 12px;
-    background: #111;
-    color: #fff;
-    padding: 4px 12px;
-    border-radius: 20px;
-    margin-bottom: 10px;
+    background: #00c853;
+    color: #ffffff;
+    padding: 6px 16px;
+    border-radius: 30px;
+    margin-bottom: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
 }
 
 .template-actions {
@@ -113,12 +125,12 @@
 <!-- CLASSIC -->
 <div class="template-card">
 <div class="template-preview">
-<div style="width:85%; background:#fff; padding:15px; transform:scale(0.85); transform-origin:top;">
-<h4 style="font-size:14px; font-weight:bold;">John Doe</h4>
-<p style="font-size:10px;">john@email.com | 0240000000 | Accra</p>
-<hr style="margin:6px 0;">
-<p style="font-size:10px; font-weight:bold;">Professional Summary</p>
-<p style="font-size:9px;">Results-driven professional with strong experience...</p>
+<div style="width:85%; background:#fff; padding:18px; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+<h4 style="font-size:15px; font-weight:bold;">John Doe</h4>
+<p style="font-size:11px;">john@email.com | 0240000000 | Accra</p>
+<hr style="margin:8px 0;">
+<p style="font-size:11px; font-weight:bold;">Professional Summary</p>
+<p style="font-size:10px;">Results-driven professional with strong experience...</p>
 </div>
 </div>
 
@@ -136,14 +148,14 @@ Clean and structured layout suitable for internships, NSS placements and most jo
 <!-- MODERN -->
 <div class="template-card">
 <div class="template-preview">
-<div style="display:flex; width:85%; background:#fff; transform:scale(0.85); transform-origin:top;">
-<div style="width:30%; background:#111; color:#fff; padding:12px;">
-<p style="font-size:9px;">John Doe</p>
-<p style="font-size:8px;">Skills</p>
+<div style="display:flex; width:85%; background:#fff; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+<div style="width:30%; background:#111; color:#fff; padding:16px;">
+<p style="font-size:10px;">John Doe</p>
+<p style="font-size:9px;">Skills</p>
 </div>
-<div style="width:70%; padding:12px;">
-<p style="font-size:10px; font-weight:bold;">Experience</p>
-<p style="font-size:9px;">Software Developer</p>
+<div style="width:70%; padding:16px;">
+<p style="font-size:12px; font-weight:bold;">Experience</p>
+<p style="font-size:10px;">Software Developer</p>
 </div>
 </div>
 </div>
@@ -168,12 +180,12 @@ Two-column modern layout ideal for tech, creative and forward-thinking corporate
 <!-- COMPACT -->
 <div class="template-card">
 <div class="template-preview">
-<div style="width:85%; background:#fff; padding:12px; transform:scale(0.85); transform-origin:top;">
-<p style="font-size:10px; font-weight:bold;">John Doe</p>
-<p style="font-size:8px;">Corporate focused summary...</p>
-<hr style="margin:5px 0;">
-<p style="font-size:9px; font-weight:bold;">Experience</p>
-<p style="font-size:8px;">Senior Analyst</p>
+<div style="width:85%; background:#fff; padding:16px; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+<p style="font-size:12px; font-weight:bold;">John Doe</p>
+<p style="font-size:10px;">Corporate focused summary...</p>
+<hr style="margin:6px 0;">
+<p style="font-size:11px; font-weight:bold;">Experience</p>
+<p style="font-size:10px;">Senior Analyst</p>
 </div>
 </div>
 
