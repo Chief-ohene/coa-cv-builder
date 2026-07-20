@@ -33,19 +33,20 @@ router.post('/paystack/initiate', async (req, res) => {
         const user = await User.findById(req.userId);
 
         const amountGHS = 40; // monthly price
-        const amountPesewas = amountGHS * 100; // Paystack amount in kobo/pesewas
+        const amountPesewas = amountGHS * 100;
 
         const response = await axios.post(
             'https://api.paystack.co/transaction/initialize',
             {
-    email: user.email,
-    amount: amountPesewas,
-    currency: 'GHS',
-    callback_url: process.env.PAYSTACK_CALLBACK_URL,
-    metadata: {
-        userId: user._id.toString()
-    }
-}
+                email: user.email,
+                amount: amountPesewas,
+                currency: 'GHS',
+                callback_url: process.env.PAYSTACK_CALLBACK_URL,
+                metadata: {
+                    userId: user._id.toString()
+                }
+            },
+            {
                 headers: {
                     Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
                     'Content-Type': 'application/json'
@@ -60,7 +61,6 @@ router.post('/paystack/initiate', async (req, res) => {
             return res.redirect('/upgrade?status=failed');
         }
 
-        // Redirect user to Paystack checkout page
         return res.redirect(data.data.authorization_url);
     } catch (err) {
         console.error('Paystack init exception:', err.response ? err.response.data : err);
@@ -68,15 +68,15 @@ router.post('/paystack/initiate', async (req, res) => {
     }
 });
 
-// GET /upgrade/paystack/callback – Paystack redirects user here after payment
+// GET /upgrade/paystack/callback – Paystack redirects user here
 router.get('/paystack/callback', async (req, res) => {
     try {
         const reference = req.query.reference;
+
         if (!reference) {
             return res.redirect('/upgrade?status=failed');
         }
 
-        // Verify transaction
         const verifyResponse = await axios.get(
             `https://api.paystack.co/transaction/verify/${reference}`,
             {
@@ -93,21 +93,29 @@ router.get('/paystack/callback', async (req, res) => {
             return res.redirect('/upgrade?status=failed');
         }
 
-        // Payment successful – upgrade user
-        // For now: 1 month premium
+        // ✅ Get userId from metadata
         const userId = data.data.metadata.userId;
-const user = await User.findById(userId);
 
-        if (!user) {
-            return res.redirect('/login');
+        if (!userId) {
+            console.error('No userId found in metadata');
+            return res.redirect('/upgrade?status=failed');
         }
 
+        const user = await User.findById(userId);
+
+        if (!user) {
+            console.error('User not found');
+            return res.redirect('/upgrade?status=failed');
+        }
+
+        // ✅ Set premium for 1 month
         const now = new Date();
         const expiry = new Date(now);
         expiry.setMonth(expiry.getMonth() + 1);
 
         user.isPremium = true;
         user.premiumExpiry = expiry;
+
         await user.save();
 
         return res.redirect('/upgrade?status=success');
