@@ -29,7 +29,7 @@
 
 .template-card {
     background: #fff;
-    border-radius: 14px;
+    border-radius: 16px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.06);
     overflow: hidden;
     transition: 0.3s ease;
@@ -43,13 +43,11 @@
 }
 
 .template-preview {
-    height: 200px;
-    background: linear-gradient(135deg, #e5e7eb, #f3f4f6);
+    height: 220px;
+    background: #f9fafb;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #9ca3af;
-    font-weight: 600;
 }
 
 .template-body {
@@ -91,19 +89,19 @@
 <body>
 
 <header class="dashboard-header">
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo-section">
-                <img src="/images/logo.png" alt="Logo" class="logo">
-                <h1>C.O.A. CV BUILDER</h1>
-            </div>
-            <div class="nav-links">
-                <a href="/dashboard">Dashboard</a>
-                <a href="/cv/my-cvs">My CVs</a>
-                <a href="/auth/logout" class="btn-logout">Logout</a>
-            </div>
-        </div>
-    </nav>
+<nav class="navbar">
+<div class="nav-container">
+<div class="logo-section">
+<img src="/images/logo.png" alt="Logo" class="logo">
+<h1>C.O.A. CV BUILDER</h1>
+</div>
+<div class="nav-links">
+<a href="/dashboard">Dashboard</a>
+<a href="/cv/my-cvs">My CVs</a>
+<a href="/auth/logout" class="btn-logout">Logout</a>
+</div>
+</div>
+</nav>
 </header>
 
 <div class="templates-wrapper">
@@ -114,56 +112,84 @@
 
 <!-- Classic -->
 <div class="template-card">
-    <div class="template-preview">Classic Preview</div>
-    <div class="template-body">
-        <div class="template-name">Professional Classic</div>
-        <div class="template-description">
-            Clean and structured layout suitable for internships, NSS placements and most job applications.
-        </div>
-        <div class="template-actions">
-            <a href="/cv/my-cvs" class="btn-primary">Use Template</a>
-        </div>
-    </div>
+<div class="template-preview">
+<div style="width:85%; background:#fff; padding:12px; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+<div style="height:12px; background:#111; width:60%; margin-bottom:6px;"></div>
+<div style="height:8px; background:#ccc; width:40%; margin-bottom:10px;"></div>
+<div style="height:6px; background:#e5e7eb; width:100%; margin-bottom:4px;"></div>
+<div style="height:6px; background:#e5e7eb; width:90%; margin-bottom:4px;"></div>
+<div style="height:6px; background:#e5e7eb; width:95%;"></div>
+</div>
+</div>
+
+<div class="template-body">
+<div class="template-name">Professional Classic</div>
+<div class="template-description">
+Clean and structured layout suitable for internships, NSS placements and most job applications.
+</div>
+<div class="template-actions">
+<a href="/cv/my-cvs" class="btn-primary">Use Template</a>
+</div>
+</div>
 </div>
 
 <!-- Modern -->
 <div class="template-card">
-    <div class="template-preview">Modern Preview</div>
-    <div class="template-body">
-        <div class="template-name">Modern Layout</div>
-        <div class="template-description">
-            Two-column modern layout ideal for tech, creative and forward-thinking corporate roles.
-        </div>
+<div class="template-preview">
+<div style="display:flex; width:85%; background:#fff; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+<div style="width:30%; background:#111; padding:12px;">
+<div style="height:6px; background:#fff; margin-bottom:6px;"></div>
+<div style="height:6px; background:#fff; width:80%;"></div>
+</div>
+<div style="width:70%; padding:12px;">
+<div style="height:10px; background:#111; width:60%; margin-bottom:8px;"></div>
+<div style="height:6px; background:#e5e7eb; width:100%; margin-bottom:4px;"></div>
+<div style="height:6px; background:#e5e7eb; width:90%;"></div>
+</div>
+</div>
+</div>
 
-        <div class="template-actions">
-            <% if (user && user.isPremium) { %>
-                <a href="/cv/my-cvs" class="btn-primary">Use Template</a>
-            <% } else { %>
-                <div class="premium-tag">Premium</div>
-                <a href="/upgrade" class="btn-secondary">Upgrade to Use</a>
-            <% } %>
-        </div>
-    </div>
+<div class="template-body">
+<div class="template-name">Modern Layout</div>
+<div class="template-description">
+Two-column modern layout ideal for tech, creative and forward-thinking corporate roles.
+</div>
+<div class="template-actions">
+<% if (user && user.isPremium) { %>
+<a href="/cv/my-cvs" class="btn-primary">Use Template</a>
+<% } else { %>
+<div class="premium-tag">Premium</div>
+<a href="/upgrade" class="btn-secondary">Upgrade to Use</a>
+<% } %>
+</div>
+</div>
 </div>
 
 <!-- Compact -->
 <div class="template-card">
-    <div class="template-preview">Compact Preview</div>
-    <div class="template-body">
-        <div class="template-name">Compact Professional</div>
-        <div class="template-description">
-            Single-column tight layout best for banking, consulting and executive-level roles.
-        </div>
+<div class="template-preview">
+<div style="width:85%; background:#fff; padding:12px; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+<div style="height:10px; background:#111; width:70%; margin-bottom:8px;"></div>
+<div style="height:6px; background:#e5e7eb; width:100%; margin-bottom:4px;"></div>
+<div style="height:6px; background:#e5e7eb; width:95%; margin-bottom:4px;"></div>
+<div style="height:6px; background:#e5e7eb; width:90%;"></div>
+</div>
+</div>
 
-        <div class="template-actions">
-            <% if (user && user.isPremium) { %>
-                <a href="/cv/my-cvs" class="btn-primary">Use Template</a>
-            <% } else { %>
-                <div class="premium-tag">Premium</div>
-                <a href="/upgrade" class="btn-secondary">Upgrade to Use</a>
-            <% } %>
-        </div>
-    </div>
+<div class="template-body">
+<div class="template-name">Compact Professional</div>
+<div class="template-description">
+Single-column tight layout best for banking, consulting and executive-level roles.
+</div>
+<div class="template-actions">
+<% if (user && user.isPremium) { %>
+<a href="/cv/my-cvs" class="btn-primary">Use Template</a>
+<% } else { %>
+<div class="premium-tag">Premium</div>
+<a href="/upgrade" class="btn-secondary">Upgrade to Use</a>
+<% } %>
+</div>
+</div>
 </div>
 
 </div>
