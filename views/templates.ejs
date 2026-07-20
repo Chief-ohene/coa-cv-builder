@@ -6,6 +6,79 @@
     <title>CV Templates - C.O.A. CV BUILDER</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/dashboard.css">
+    <style>
+        .templates-wrapper {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .template-card-pro {
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+            transition: 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .template-card-pro:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+        }
+
+        .template-preview {
+            height: 220px;
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #9ca3af;
+            font-size: 18px;
+        }
+
+        .template-body {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .template-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .template-desc {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .template-footer {
+            margin-top: auto;
+        }
+
+        .premium-tag {
+            display: inline-block;
+            font-size: 12px;
+            background: #111;
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
 
@@ -25,56 +98,33 @@
     </nav>
 </header>
 
-<main class="dashboard-main">
-    <div class="dashboard-container">
+<div class="templates-wrapper">
 
-        <h2 style="margin-bottom: 30px;">Choose Your CV Template</h2>
+    <h2 style="margin-bottom:40px;">Choose a CV Template</h2>
 
-        <div class="dashboard-cards">
+    <div class="templates-grid">
 
-            <!-- Classic -->
-            <div class="dashboard-card">
-                <h3>Professional Classic</h3>
-                <p>
-                    Clean and structured layout suitable for internships, NSS, and most job applications.
-                </p>
-                <a href="/cv/my-cvs" class="btn-primary">Use Classic</a>
+        <!-- Classic -->
+        <div class="template-card-pro">
+            <div class="template-preview">
+                Classic Preview
             </div>
-
-            <!-- Modern -->
-            <div class="dashboard-card">
-                <h3>Modern Layout</h3>
-                <p>
-                    Two-column design ideal for tech, creative, and modern corporate roles.
-                </p>
-
-                <% if (user.isPremium) { %>
-                    <a href="/cv/my-cvs" class="btn-primary">Use Modern</a>
-                <% } else { %>
-                    <span class="premium-badge">Premium</span>
-                    <a href="/upgrade" class="btn-secondary">Upgrade to Use</a>
-                <% } %>
+            <div class="template-body">
+                <div class="template-title">Professional Classic</div>
+                <div class="template-desc">
+                    Clean, structured layout suitable for most internships, NSS placements and job applications.
+                </div>
+                <div class="template-footer">
+                    <a href="/cv/my-cvs" class="btn-primary">Use Template</a>
+                </div>
             </div>
-
-            <!-- Compact -->
-            <div class="dashboard-card">
-                <h3>Compact Professional</h3>
-                <p>
-                    Single-column tight layout best for banking, consulting, and executive roles.
-                </p>
-
-                <% if (user.isPremium) { %>
-                    <a href="/cv/my-cvs" class="btn-primary">Use Compact</a>
-                <% } else { %>
-                    <span class="premium-badge">Premium</span>
-                    <a href="/upgrade" class="btn-secondary">Upgrade to Use</a>
-                <% } %>
-            </div>
-
         </div>
 
-    </div>
-</main>
-
-</body>
-</html>
+        <!-- Modern -->
+        <div class="template-card-pro">
+            <div class="template-preview">
+                Modern Preview
+            </div>
+            <div class="template-body">
+                <div class="template-title">Modern Layout</div>
+                <div 
