@@ -1,90 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV Templates - C.O.A. CV BUILDER</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/dashboard.css">
-    <style>
-        .templates-wrapper {
-            max-width: 1100px;
-            margin: 60px auto;
-            padding: 20px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV Templates - C.O.A. CV BUILDER</title>
 
-        .templates-title {
-            font-size: 26px;
-            font-weight: 600;
-            margin-bottom: 40px;
-        }
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/dashboard.css">
 
-        .templates-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-        }
+<style>
+.templates-wrapper {
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 20px;
+}
 
-        .template-card {
-            background: #fff;
-            border-radius: 14px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-            overflow: hidden;
-            transition: 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
+.templates-title {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 40px;
+}
 
-        .template-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 32px rgba(0,0,0,0.1);
-        }
+.templates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+}
 
-        .template-preview {
-            height: 200px;
-            background: linear-gradient(135deg, #e5e7eb, #f3f4f6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #9ca3af;
-            font-weight: 600;
-        }
+.template-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    overflow: hidden;
+    transition: 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
 
-        .template-body {
-            padding: 25px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
+.template-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+}
 
-        .template-name {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
+.template-preview {
+    height: 200px;
+    background: linear-gradient(135deg, #e5e7eb, #f3f4f6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    font-weight: 600;
+}
 
-        .template-description {
-            font-size: 14px;
-            color: #6b7280;
-            margin-bottom: 20px;
-            flex: 1;
-        }
+.template-body {
+    padding: 25px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
 
-        .premium-tag {
-            display: inline-block;
-            font-size: 12px;
-            background: #111;
-            color: #fff;
-            padding: 4px 12px;
-            border-radius: 20px;
-            margin-bottom: 10px;
-        }
+.template-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
 
-        .template-actions {
-            margin-top: auto;
-        }
-    </style>
+.template-description {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 20px;
+    flex: 1;
+}
+
+.premium-tag {
+    display: inline-block;
+    font-size: 12px;
+    background: #111;
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+.template-actions {
+    margin-top: auto;
+}
+</style>
 </head>
+
 <body>
 
 <header class="dashboard-header">
@@ -105,14 +108,66 @@
 
 <div class="templates-wrapper">
 
-    <div class="templates-title">Choose a CV Template</div>
+<div class="templates-title">Choose a CV Template</div>
 
-    <div class="templates-grid">
+<div class="templates-grid">
 
-        <!-- Classic -->
-        <div class="template-card">
-            <div class="template-preview">
-                Classic Preview
-            </div>
-            <div class="template-body">
-                <div class="template-name">Professional 
+<!-- Classic -->
+<div class="template-card">
+    <div class="template-preview">Classic Preview</div>
+    <div class="template-body">
+        <div class="template-name">Professional Classic</div>
+        <div class="template-description">
+            Clean and structured layout suitable for internships, NSS placements and most job applications.
+        </div>
+        <div class="template-actions">
+            <a href="/cv/my-cvs" class="btn-primary">Use Template</a>
+        </div>
+    </div>
+</div>
+
+<!-- Modern -->
+<div class="template-card">
+    <div class="template-preview">Modern Preview</div>
+    <div class="template-body">
+        <div class="template-name">Modern Layout</div>
+        <div class="template-description">
+            Two-column modern layout ideal for tech, creative and forward-thinking corporate roles.
+        </div>
+
+        <div class="template-actions">
+            <% if (user && user.isPremium) { %>
+                <a href="/cv/my-cvs" class="btn-primary">Use Template</a>
+            <% } else { %>
+                <div class="premium-tag">Premium</div>
+                <a href="/upgrade" class="btn-secondary">Upgrade to Use</a>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<!-- Compact -->
+<div class="template-card">
+    <div class="template-preview">Compact Preview</div>
+    <div class="template-body">
+        <div class="template-name">Compact Professional</div>
+        <div class="template-description">
+            Single-column tight layout best for banking, consulting and executive-level roles.
+        </div>
+
+        <div class="template-actions">
+            <% if (user && user.isPremium) { %>
+                <a href="/cv/my-cvs" class="btn-primary">Use Template</a>
+            <% } else { %>
+                <div class="premium-tag">Premium</div>
+                <a href="/upgrade" class="btn-secondary">Upgrade to Use</a>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+
+</body>
+</html>
