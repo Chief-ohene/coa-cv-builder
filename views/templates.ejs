@@ -8,9 +8,15 @@
     <link rel="stylesheet" href="/css/dashboard.css">
     <style>
         .templates-wrapper {
-            max-width: 1200px;
-            margin: 50px auto;
+            max-width: 1100px;
+            margin: 60px auto;
             padding: 20px;
+        }
+
+        .templates-title {
+            font-size: 26px;
+            font-weight: 600;
+            margin-bottom: 40px;
         }
 
         .templates-grid {
@@ -19,30 +25,29 @@
             gap: 40px;
         }
 
-        .template-card-pro {
-            background: #ffffff;
-            border-radius: 16px;
-            overflow: hidden;
+        .template-card {
+            background: #fff;
+            border-radius: 14px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+            overflow: hidden;
             transition: 0.3s ease;
             display: flex;
             flex-direction: column;
         }
 
-        .template-card-pro:hover {
+        .template-card:hover {
             transform: translateY(-6px);
             box-shadow: 0 12px 32px rgba(0,0,0,0.1);
         }
 
         .template-preview {
-            height: 220px;
-            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            height: 200px;
+            background: linear-gradient(135deg, #e5e7eb, #f3f4f6);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
             color: #9ca3af;
-            font-size: 18px;
+            font-weight: 600;
         }
 
         .template-body {
@@ -52,21 +57,17 @@
             flex-direction: column;
         }
 
-        .template-title {
-            font-size: 20px;
+        .template-name {
+            font-size: 18px;
             font-weight: 600;
             margin-bottom: 10px;
         }
 
-        .template-desc {
+        .template-description {
             font-size: 14px;
             color: #6b7280;
             margin-bottom: 20px;
             flex: 1;
-        }
-
-        .template-footer {
-            margin-top: auto;
         }
 
         .premium-tag {
@@ -74,9 +75,13 @@
             font-size: 12px;
             background: #111;
             color: #fff;
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 20px;
             margin-bottom: 10px;
+        }
+
+        .template-actions {
+            margin-top: auto;
         }
     </style>
 </head>
@@ -100,31 +105,14 @@
 
 <div class="templates-wrapper">
 
-    <h2 style="margin-bottom:40px;">Choose a CV Template</h2>
+    <div class="templates-title">Choose a CV Template</div>
 
     <div class="templates-grid">
 
         <!-- Classic -->
-        <div class="template-card-pro">
+        <div class="template-card">
             <div class="template-preview">
                 Classic Preview
             </div>
             <div class="template-body">
-                <div class="template-title">Professional Classic</div>
-                <div class="template-desc">
-                    Clean, structured layout suitable for most internships, NSS placements and job applications.
-                </div>
-                <div class="template-footer">
-                    <a href="/cv/my-cvs" class="btn-primary">Use Template</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modern -->
-        <div class="template-card-pro">
-            <div class="template-preview">
-                Modern Preview
-            </div>
-            <div class="template-body">
-                <div class="template-title">Modern Layout</div>
-                <div 
+                <div class="template-name">Professional 
