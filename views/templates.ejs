@@ -169,109 +169,91 @@ Select a layout that best matches your career goals and industry.
 
 <!-- CLASSIC -->
 <div class="template-card">
-<div class="template-preview">
-<div style="width:85%; background:#fff; padding:18px; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
-<h4 style="font-size:15px; font-weight:bold;">John Doe</h4>
-<p style="font-size:11px;">john@email.com | 0240000000 | Accra</p>
-<hr style="margin:8px 0;">
-<p style="font-size:11px; font-weight:bold;">Professional Summary</p>
-<p style="font-size:10px;">Clear, structured and easy-to-read format.</p>
-</div>
-</div>
-
-<div class="template-body">
-<div class="template-name">Professional Classic</div>
-<div class="template-bestfor">Best for internships & NSS</div>
-<div class="template-benefits">
-• Clean structure  
-• ATS-friendly formatting  
-• Easy for recruiters to scan  
-</div>
-<div class="template-actions">
-<a href="/cv/my-cvs?tpl=classic" class="btn-template btn-active">Use Template</a>
-</div>
-</div>
+    <div class="template-preview">
+        <div style="width:85%; background:#fff; padding:18px; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+            <h4 style="font-size:15px; font-weight:bold;">John Doe</h4>
+            <p style="font-size:11px;">john@email.com | Accra</p>
+        </div>
+    </div>
+    <div class="template-body">
+        <div class="template-name">Professional Classic</div>
+        <div class="template-bestfor">Best for internships & NSS</div>
+        <div class="template-benefits">
+            • Clean structure<br>
+            • ATS-friendly<br>
+            • Easy to scan
+        </div>
+        <div class="template-actions">
+            <a href="/cv/my-cvs?tpl=classic" class="btn-template btn-active">Use Template</a>
+        </div>
+    </div>
 </div>
 
 <!-- MODERN -->
 <div class="template-card">
-<div class="template-preview">
-<div style="display:flex; width:85%; background:#fff; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
-<div style="width:30%; background:#111; color:#fff; padding:16px;">
-<p style="font-size:10px;">John Doe</p>
-<p style="font-size:9px;">Skills</p>
-</div>
-<div style="width:70%; padding:16px;">
-<p style="font-size:12px; font-weight:bold;">Experience</p>
-<p style="font-size:10px;">Software Developer</p>
-</div>
-</div>
-</div>
-
-<div class="template-body">
-<div class="template-name">Modern Layout</div>
-<div class="template-bestfor">Best for tech & creative roles</div>
-<div class="template-benefits">
-• Two-column layout  
-• Strong visual hierarchy  
-• Modern professional feel  
-</div>
-
-<div class="template-actions">
-<% if (user && user.isPremium) { %>
-<a href="/cv/my-cvs?tpl=modern" class="btn-template btn-active">Use Template</a>
-<% } else { %>
-<div class="premium-tag">Premium</div>
-<a href="/upgrade" class="btn-template btn-upgrade">Upgrade to Use</a>
-<% } %>
-</div>
-</div>
+    <div class="template-preview">
+        <div style="display:flex; width:85%; background:#fff;">
+            <div style="width:30%; background:#2563eb; height:80px;"></div>
+            <div style="width:70%; padding:10px;">
+                <div style="height:10px; background:#111; width:60%; margin-bottom:6px;"></div>
+                <div style="height:6px; background:#ddd; width:90%;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="template-body">
+        <div class="template-name">Modern Layout</div>
+        <div class="template-bestfor">Best for tech & creative roles</div>
+        <div class="template-benefits">
+            • Two-column layout<br>
+            • Clear hierarchy<br>
+            • Modern feel
+        </div>
+        <div class="template-actions">
+            <% if (user && user.isPremium) { %>
+                <a href="/cv/my-cvs?tpl=modern" class="btn-template btn-active">Use Template</a>
+            <% } else { %>
+                <div class="premium-tag">Premium</div>
+                <a href="/upgrade" class="btn-template btn-upgrade">Upgrade to Use</a>
+            <% } %>
+        </div>
+    </div>
 </div>
 
 <!-- COMPACT -->
 <div class="template-card">
-<div class="template-preview">
-<div style="width:85%; background:#fff; padding:16px; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
-<p style="font-size:12px; font-weight:bold;">John Doe</p>
-<p style="font-size:10px;">Corporate-focused summary...</p>
-<hr style="margin:6px 0;">
-<p style="font-size:11px; font-weight:bold;">Experience</p>
-<p style="font-size:10px;">Senior Analyst</p>
-</div>
-</div>
-
-<div class="template-body">
-<div class="template-name">Compact Professional</div>
-<div class="template-bestfor">Best for corporate & banking</div>
-<div class="template-benefits">
-• Tighter professional spacing  
-• Clean single-column format  
-• Ideal for executive roles  
-</div>
-
-<div class="template-actions">
-<% if (user && user.isPremium) { %>
-<a href="/cv/my-cvs?tpl=compact" class="btn-template btn-active">Use Template</a>
-<% } else { %>
-<div class="premium-tag">Premium</div>
-<a href="/upgrade" class="btn-template btn-upgrade">Upgrade to Use</a>
-<% } %>
-</div>
-</div>
+    <div class="template-preview">
+        <div style="width:85%; background:#fff; padding:15px;">
+            <div style="height:8px; background:#111; width:70%; margin-bottom:6px;"></div>
+            <div style="height:6px; background:#ccc; width:90%;"></div>
+        </div>
+    </div>
+    <div class="template-body">
+        <div class="template-name">Compact Professional</div>
+        <div class="template-bestfor">Best for corporate & banking</div>
+        <div class="template-benefits">
+            • Tighter spacing<br>
+            • Formal tone<br>
+            • Executive style
+        </div>
+        <div class="template-actions">
+            <% if (user && user.isPremium) { %>
+                <a href="/cv/my-cvs?tpl=compact" class="btn-template btn-active">Use Template</a>
+            <% } else { %>
+                <div class="premium-tag">Premium</div>
+                <a href="/upgrade" class="btn-template btn-upgrade">Upgrade to Use</a>
+            <% } %>
+        </div>
+    </div>
 </div>
 
-</div>
-</div>
 <!-- MINIMAL -->
 <div class="template-card">
     <div class="template-preview">
-        <div style="width:85%; background:#fff; padding:18px; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+        <div style="width:85%; background:#fff; padding:18px;">
             <h4 style="font-size:15px; font-weight:bold;">John Doe</h4>
-            <p style="font-size:11px; color:#777;">john@email.com | 0240000000 | Accra</p>
-            <p style="font-size:10px; margin-top:8px;">Minimal whitespace-focused layout.</p>
+            <p style="font-size:11px; color:#777;">Minimal whitespace layout</p>
         </div>
     </div>
-
     <div class="template-body">
         <div class="template-name">Minimal Clean</div>
         <div class="template-bestfor">Best for modern & design roles</div>
@@ -280,7 +262,6 @@ Select a layout that best matches your career goals and industry.
             • Large typography<br>
             • Clean layout
         </div>
-
         <div class="template-actions">
             <% if (user && user.isPremium) { %>
                 <a href="/cv/my-cvs?tpl=minimal" class="btn-template btn-active">Use Template</a>
@@ -290,6 +271,8 @@ Select a layout that best matches your career goals and industry.
             <% } %>
         </div>
     </div>
+</div>
+
 </div>
 
 </body>
