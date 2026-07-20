@@ -151,12 +151,11 @@ router.get('/:id', async (req, res) => {
 
         if (!cv) return res.redirect('/cv/my-cvs');
 
-        // ✅ Premium expiry enforcement
+        // Premium expiry enforcement
         let isPremium = false;
 
         if (user.isPremium && user.premiumExpiry) {
             const now = new Date();
-
             if (new Date(user.premiumExpiry) > now) {
                 isPremium = true;
             } else {
@@ -166,52 +165,31 @@ router.get('/:id', async (req, res) => {
             }
         }
 
-        // ✅ Template logic
+        // Read template from query
         let selectedTemplate = 'classic';
 
-        if (isPremium && req.query.tpl === 'modern') {
-            selectedTemplate = 'modern';
+        if (isPremium && req.query.tpl) {
+            selectedTemplate = req.query.tpl;
         }
 
-        if (isPremium && req.query.tpl === 'compact') {
-            selectedTemplate = 'compact';
-        }
-        if (isPremium && req.query.tpl === 'executive') {
-    selectedTemplate = 'executive';
-}
-
+        // Render correct template
         if (selectedTemplate === 'modern') {
-            return res.render('cv-preview-modern', {
-                user,
-                cv,
-                isPremium,
-                selectedTemplate
-            });
+            return res.render('cv-preview-modern', { user, cv, isPremium });
         }
 
         if (selectedTemplate === 'compact') {
-            return res.render('cv-preview-compact', {
-                user,
-                cv,
-                isPremium,
-                selectedTemplate
-            });
+            return res.render('cv-preview-compact', { user, cv, isPremium });
         }
-        if (selectedTemplate === 'executive') {
-    return res.render('cv-preview-executive', {
-        user,
-        cv,
-        isPremium,
-        selectedTemplate
-    });
-}
 
-        return res.render('cv-preview', {
-            user,
-            cv,
-            isPremium,
-            selectedTemplate
-        });
+        if (selectedTemplate === 'executive') {
+            return res.render('cv-preview-executive', { user, cv, isPremium });
+        }
+
+        if (selectedTemplate === 'minimal') {
+            return res.render('cv-preview-minimal', { user, cv, isPremium });
+        }
+
+        return res.render('cv-preview', { user, cv, isPremium });
 
     } catch (err) {
         console.error(err);
