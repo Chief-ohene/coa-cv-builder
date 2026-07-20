@@ -221,7 +221,20 @@ router.get('/:id', async (req, res) => {
             return res.redirect('/cv/my-cvs');
         }
 
-        const isPremium = user.isPremium;
+        let isPremium = false;
+
+if (user.isPremium && user.premiumExpiry) {
+    const now = new Date();
+
+    if (new Date(user.premiumExpiry) > now) {
+        isPremium = true;
+    } else {
+        // Premium expired — auto downgrade
+        user.isPremium = false;
+        await user.save();
+        isPremium = false;
+    }
+}
         const selectedTemplate = (req.query.tpl === 'modern' && isPremium) ? 'modern' : 'classic';
 
         if (selectedTemplate === 'modern') {
