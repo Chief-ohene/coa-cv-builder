@@ -50,7 +50,9 @@
                                 </p>
                             </div>
           <div class="cv-card-actions">
-    <a href="/cv/<%= cv._id %>" class="btn-small-secondary">View / PDF</a>
+<a href="/cv/<%= cv._id %>?tpl=<%= selectedTemplate %>" class="btn-small-secondary">
+    View / PDF
+</a>
     <a href="/cv/<%= cv._id %>/edit" class="btn-small">Edit</a>
     <a href="/cover-letters/new/<%= cv._id %>" class="btn-small">Cover Letter</a>
 </div>

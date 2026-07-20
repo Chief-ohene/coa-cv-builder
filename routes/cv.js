@@ -96,7 +96,10 @@ router.get('/my-cvs', async (req, res) => {
     try {
         const user = await User.findById(req.userId);
         const cvs = await CV.find({ user: req.userId }).sort({ createdAt: -1 });
-        return res.render('my-cvs', { user, cvs });
+
+        const selectedTemplate = req.query.tpl || 'classic';
+
+        return res.render('my-cvs', { user, cvs, selectedTemplate });
     } catch (err) {
         console.error(err);
         return res.redirect('/dashboard');
@@ -173,6 +176,9 @@ router.get('/:id', async (req, res) => {
         if (isPremium && req.query.tpl === 'compact') {
             selectedTemplate = 'compact';
         }
+        if (isPremium && req.query.tpl === 'executive') {
+    selectedTemplate = 'executive';
+}
 
         if (selectedTemplate === 'modern') {
             return res.render('cv-preview-modern', {
@@ -191,6 +197,14 @@ router.get('/:id', async (req, res) => {
                 selectedTemplate
             });
         }
+        if (selectedTemplate === 'executive') {
+    return res.render('cv-preview-executive', {
+        user,
+        cv,
+        isPremium,
+        selectedTemplate
+    });
+}
 
         return res.render('cv-preview', {
             user,
