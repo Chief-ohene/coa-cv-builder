@@ -79,6 +79,21 @@ body {
     background: #00b94a;
     transform: translateY(-2px);
 }
+.btn-back {
+    background: #ffffff;
+    color: #111;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid #e5e7eb;
+    transition: 0.3s ease;
+}
+
+.btn-back:hover {
+    background: #f3f4f6;
+    transform: translateY(-2px);
+}
 
 @media print {
     body {
@@ -99,7 +114,7 @@ body {
 <body>
 
 <div class="toolbar">
-<a href="/cv/my-cvs">← Back to My CVs</a>
+<a href="/cv/my-cvs" class="btn-back">← Back to My CVs</a>
 <button class="btn-download" onclick="window.print()">Download PDF</button>
 </div>
 
