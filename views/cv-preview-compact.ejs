@@ -46,40 +46,44 @@ body {
 }
 
 .compact-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 25px;
 }
 
-.compact-header h1 {
-    font-size: 24px;
+.compact-name {
+    font-size: 22px;
     font-weight: 700;
-    margin-bottom: 4px;
 }
 
 .compact-contact {
-    font-size: 13px;
-    color: #333;
+    font-size: 12px;
+    text-align: right;
 }
 
 .compact-section {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
+    padding-left: 12px;
+    border-left: 3px solid #000;
 }
 
 .compact-section h3 {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
-    margin-bottom: 6px;
     text-transform: uppercase;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
 }
 
 .compact-section p {
     font-size: 13px;
-    line-height: 1.5;
+    line-height: 1.4;
 }
 
 .compact-dates {
     float: right;
     font-size: 12px;
-    color: #444;
 }
 
 .clear { clear: both; }
@@ -100,9 +104,11 @@ body {
 <div class="compact-wrapper">
 
 <div class="compact-header">
-<h1><%= cv.fullName %></h1>
+<div class="compact-name"><%= cv.fullName %></div>
 <div class="compact-contact">
-<%= cv.email %> | <%= cv.phone %> | <%= cv.location %>
+<%= cv.email %><br>
+<%= cv.phone %><br>
+<%= cv.location %>
 </div>
 </div>
 
