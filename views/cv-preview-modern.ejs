@@ -24,51 +24,150 @@
     background: #00b94a;
     transform: translateY(-2px);
 }
+
+.preview-wrapper {
+    max-width: 900px;
+    margin: 60px auto;
+    background: #ffffff;
+    padding: 60px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    font-family: Arial, sans-serif;
+}
+
+.preview-header {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.preview-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.preview-contact {
+    font-size: 14px;
+    color: #555;
+}
+
+.modern-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+}
+
+.modern-left {
+    background: #111;
+    color: #fff;
+    padding: 30px;
+}
+
+.modern-right {
+    padding: 10px 0;
+}
+
+.section-title {
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #00c853;
+    padding-bottom: 4px;
+}
+
+.section-text {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.toolbar {
+    max-width: 900px;
+    margin: 30px auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-back {
+    background: #fff7e6;
+    color: #d97706;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid #fbbf24;
+    transition: 0.3s ease;
+}
+
+.btn-back:hover {
+    background: #fbbf24;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+@media print {
+    .toolbar { display: none; }
+    body { background: #fff; }
+    .preview-wrapper {
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<header>
-<nav class="navbar">
-<div class="nav-container">
-<div class="logo-section">
-<img src="/images/logo.png" alt="Logo" class="logo">
-<h1>C.O.A. CV BUILDER</h1>
-</div>
-<div class="nav-links">
-<a href="/dashboard">Dashboard</a>
-<a href="/cv/my-cvs">My CVs</a>
-<a href="/auth/logout" class="btn-primary">Logout</a>
-</div>
-</div>
-</nav>
-</header>
-
-<section class="cv-preview-toolbar">
-<div class="toolbar-inner">
-<a href="/cv/my-cvs" class="btn-secondary">← Back to My CVs</a>
-
-<div style="display:flex; gap:1rem; align-items:center;">
-<span style="font-size:0.9rem; color:#6b7280;">
-Viewing: <strong>Modern Template</strong>
-</span>
-
-<button type="button" class="btn-download" onclick="window.print()">
-Download PDF
-</button>
+<div class="toolbar">
+<a href="/cv/my-cvs" class="btn-back">← Back to My CVs</a>
+<button class="btn-download" onclick="window.print()">Download PDF</button>
 </div>
 
+<div class="preview-wrapper">
+
+<div class="preview-header">
+<h1><%= cv.fullName %></h1>
+<div class="preview-contact">
+<%= cv.email %> | <%= cv.phone %> | <%= cv.location %>
 </div>
-</section>
+</div>
 
-<main class="cv-preview-main">
-<div class="resume-wrapper">
+<div class="modern-grid">
 
-<!-- Keep your existing modern layout structure here -->
+<div class="modern-left">
+<h3 class="section-title">Skills</h3>
+<p class="section-text"><%= cv.skills %></p>
+</div>
+
+<div class="modern-right">
+
+<% if (cv.summary) { %>
+<h3 class="section-title">Professional Summary</h3>
+<p class="section-text"><%= cv.summary %></p>
+<% } %>
+
+<% if (cv.experience && cv.experience.company) { %>
+<h3 class="section-title">Experience</h3>
+<p class="section-text">
+<strong><%= cv.experience.role %></strong> – <%= cv.experience.company %><br>
+<%= cv.experience.startYear %> - <%= cv.experience.endYear %><br>
+<%= cv.experience.details %>
+</p>
+<% } %>
+
+<% if (cv.education && cv.education.school) { %>
+<h3 class="section-title">Education</h3>
+<p class="section-text">
+<strong><%= cv.education.degree %></strong> – <%= cv.education.school %><br>
+<%= cv.education.startYear %> - <%= cv.education.endYear %><br>
+<%= cv.education.details %>
+</p>
+<% } %>
 
 </div>
-</main>
+</div>
+</div>
 
 </body>
 </html>
