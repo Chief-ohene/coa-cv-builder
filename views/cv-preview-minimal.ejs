@@ -2,26 +2,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title><%= cv.fullName %> - Minimal Template</title>
+<title><%= cv.fullName %> - Minimal</title>
 
 <style>
 body {
     background: #ffffff;
-    font-family: Arial, sans-serif;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
     color: #111;
 }
 
 .toolbar {
-    max-width: 820px;
-    margin: 25px auto 0;
+    max-width: 900px;
+    margin: 30px auto 0;
     display: flex;
     justify-content: space-between;
 }
 
 .btn-download {
     background: #00c853;
-    color: #ffffff;
-    padding: 10px 24px;
+    color: #fff;
+    padding: 10px 22px;
     border-radius: 6px;
     border: none;
     font-weight: 600;
@@ -39,37 +39,42 @@ body {
 }
 
 .wrapper {
-    max-width: 820px;
-    margin: 40px auto;
-    padding: 40px;
+    max-width: 900px;
+    margin: 70px auto;
+    padding: 0 40px;
 }
 
 .name {
-    font-size: 28px;
+    font-size: 36px;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .contact {
-    font-size: 13px;
-    color: #555;
-    margin-bottom: 30px;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 50px;
 }
 
 .section {
-    margin-bottom: 30px;
+    margin-bottom: 45px;
 }
 
 .section h3 {
     font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 8px;
+    font-weight: 600;
+    letter-spacing: 1px;
     text-transform: uppercase;
+    margin-bottom: 15px;
 }
 
 .section p {
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+@media print {
+    .toolbar { display: none; }
 }
 </style>
 </head>
@@ -90,7 +95,7 @@ body {
 
 <% if (cv.summary) { %>
 <div class="section">
-<h3>Professional Summary</h3>
+<h3>Summary</h3>
 <p><%= cv.summary %></p>
 </div>
 <% } %>
@@ -100,7 +105,7 @@ body {
 <h3>Experience</h3>
 <p>
 <strong><%= cv.experience.role %></strong> – <%= cv.experience.company %><br>
-<%= cv.experience.startYear %> - <%= cv.experience.endYear %><br>
+<%= cv.experience.startYear %> - <%= cv.experience.endYear %><br><br>
 <%= cv.experience.details %>
 </p>
 </div>
@@ -111,7 +116,7 @@ body {
 <h3>Education</h3>
 <p>
 <strong><%= cv.education.degree %></strong> – <%= cv.education.school %><br>
-<%= cv.education.startYear %> - <%= cv.education.endYear %><br>
+<%= cv.education.startYear %> - <%= cv.education.endYear %><br><br>
 <%= cv.education.details %>
 </p>
 </div>
