@@ -5,95 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV Templates - C.O.A. CV BUILDER</title>
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/dashboard.css">
+    <style>
+        .templates-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .template-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+            padding: 20px;
+            text-align: center;
+            transition: 0.3s ease;
+        }
+
+        .template-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .template-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .template-desc {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .template-badge {
+            display: inline-block;
+            background: #111;
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .template-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn-free {
+            background: #4CAF50;
+            color: #fff;
+        }
+
+        .btn-premium {
+            background: #000;
+            color: #fff;
+        }
+
+        .locked {
+            background: #ccc;
+            color: #444;
+            cursor: not-allowed;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- HEADER / NAVBAR -->
-    <header class="dashboard-header">
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="logo-section">
-                    <img src="/images/logo.png" alt="C.O.A. TECH Logo" class="logo">
-                    <h1>C.O.A. CV BUILDER</h1>
-                </div>
-                <div class="nav-links">
-                    <a href="/">Home</a>
-                    <a href="/dashboard">Dashboard</a>
-                    <a href="/auth/logout" class="btn-logout">Logout</a>
-                </div>
+<div class="templates-container">
+    <h2 style="text-align:center; margin-bottom:30px;">Choose Your CV Template</h2>
+
+    <div class="templates-grid">
+
+        <!-- Classic -->
+        <div class="template-card">
+            <div class="template-title">Professional Classic</div>
+            <div class="template-desc">
+                Clean and structured layout suitable for most internships, NSS, and job applications.
             </div>
-        </nav>
-    </header>
-
-    <!-- MAIN CONTENT -->
-    <main class="dashboard-main">
-        <div class="dashboard-container">
-
-            <section style="margin: 3rem 0;">
-                <h2 style="color: #006B3F; font-size: 2rem; margin-bottom: 0.5rem;">
-                    CV Templates
-                </h2>
-
-                <p style="color: #4b5563; margin-bottom: 1.5rem;">
-                    C.O.A. CV BUILDER offers multiple professional layouts for your CV.
-                    All users have access to our Professional Classic layout.
-                    Premium users can also use our Modern layout when previewing and downloading CVs.
-                </p>
-
-                <div class="features-comparison">
-
-                    <!-- CLASSIC TEMPLATE -->
-                    <div class="feature-item">
-                        <span class="check active">
-                            Available (Free & Premium)
-                        </span>
-                        <span>
-                            <strong>Professional Classic</strong> – clean, structured CV
-                            suitable for most job applications. This is the default layout
-                            used when you preview or download your CV.
-                        </span>
-                    </div>
-
-                    <!-- MODERN TEMPLATE -->
-                    <div class="feature-item">
-                        <span class="check <%= (typeof user !== 'undefined' && user.isPremium) ? 'active' : 'inactive' %>">
-                            <%= (typeof user !== 'undefined' && user.isPremium) ? 'Available (Premium)' : 'Premium Only' %>
-                        </span>
-                        <span>
-                            <strong>Modern Layout</strong> – a two-column modern design
-                            that highlights contact details and skills on the left,
-                            with experience and education on the right.
-                            <% if (!(typeof user !== 'undefined' && user.isPremium)) { %>
-                                Upgrade to Premium to unlock this template.
-                            <% } %>
-                        </span>
-                    </div>
-
-                    <!-- FUTURE TEMPLATE -->
-                    <div class="feature-item">
-                        <span class="check inactive">
-                            Coming Soon
-                        </span>
-                        <span>
-                            <strong>Tech / Projects Layout</strong> – optimized for
-                            software developers and technical roles, focusing on
-                            projects, technologies, and certifications.
-                        </span>
-                    </div>
-
-                </div>
-
-                <p style="margin-top: 2rem; color: #6b7280;">
-                    To switch templates for a CV:
-                    Go to <strong>My CVs</strong> → Click <strong>View / PDF</strong> →
-                    Choose your preferred template at the top of the preview screen.
-                </p>
-
-            </section>
-
+            <a href="/cv/my-cvs" class="template-btn btn-free">Use Classic</a>
         </div>
-    </main>
+
+        <!-- Modern -->
+        <div class="template-card">
+            <div class="template-title">Modern Layout</div>
+            <div class="template-desc">
+                Two-column layout ideal for creative, tech, and modern corporate roles.
+            </div>
+
+            <% if (user.isPremium) { %>
+                <a href="/cv/my-cvs" class="template-btn btn-premium">Use Modern</a>
+            <% } else { %>
+                <div class="template-badge">Premium</div>
+                <a href="/upgrade" class="template-btn btn-premium">Upgrade to Use</a>
+            <% } %>
+        </div>
+
+        <!-- Compact -->
+        <div class="template-card">
+            <div class="template-title">Compact Professional</div>
+            <div class="template-desc">
+                Tight single-column layout best for corporate, banking, and consulting roles.
+            </div>
+
+            <% if (user.isPremium) { %>
+                <a href="/cv/my-cvs" class="template-btn btn-premium">Use Compact</a>
+            <% } else { %>
+                <div class="template-badge">Premium</div>
+                <a href="/upgrade" class="template-btn btn-premium">Upgrade to Use</a>
+            <% } %>
+        </div>
+
+    </div>
+</div>
 
 </body>
 </html>
