@@ -38,12 +38,14 @@ router.post('/paystack/initiate', async (req, res) => {
         const response = await axios.post(
             'https://api.paystack.co/transaction/initialize',
             {
-                email: user.email,
-                amount: amountPesewas,
-                currency: 'GHS',
-                callback_url: process.env.PAYSTACK_CALLBACK_URL
-            },
-            {
+    email: user.email,
+    amount: amountPesewas,
+    currency: 'GHS',
+    callback_url: process.env.PAYSTACK_CALLBACK_URL,
+    metadata: {
+        userId: user._id.toString()
+    }
+}
                 headers: {
                     Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
                     'Content-Type': 'application/json'
@@ -93,8 +95,8 @@ router.get('/paystack/callback', async (req, res) => {
 
         // Payment successful – upgrade user
         // For now: 1 month premium
-        const userId = req.userId;
-        const user = await User.findById(userId);
+        const userId = data.data.metadata.userId;
+const user = await User.findById(userId);
 
         if (!user) {
             return res.redirect('/login');
