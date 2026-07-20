@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%= cv.fullName %> - Compact Template</title>
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/cv-preview.css">
+
+<style>
+.btn-download {
+    background: #00c853;
+    color: #ffffff;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-download:hover {
+    background: #00b94a;
+    transform: translateY(-2px);
+}
+
+.compact-wrapper {
+    max-width: 800px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 50px;
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.compact-header {
+    border-bottom: 2px solid #111;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.compact-header h1 {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.compact-contact {
+    font-size: 14px;
+    color: #444;
+}
+
+.compact-section {
+    margin-bottom: 20px;
+}
+
+.compact-section h3 {
+    font-size: 15px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 3px;
+}
+
+.compact-item {
+    margin-bottom: 10px;
+}
+
+.compact-dates {
+    float: right;
+    font-size: 13px;
+    color: #555;
+}
+
+.clear { clear: both; }
+
+@media print {
+    body { background: #fff; }
+    .compact-wrapper {
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<nav class="navbar">
+<div class="nav-container">
+<div class="logo-section">
+<img src="/images/logo.png" alt="Logo" class="logo">
+<h1>C.O.A. CV BUILDER</h1>
+</div>
+<div class="nav-links">
+<a href="/dashboard">Dashboard</a>
+<a href="/cv/my-cvs">My CVs</a>
+<a href="/auth/logout" class="btn-primary">Logout</a>
+</div>
+</div>
+</nav>
+</header>
+
+<section class="cv-preview-toolbar">
+<div class="toolbar-inner">
+<a href="/cv/my-cvs" class="btn-secondary">← Back to My CVs</a>
+
+<div style="display:flex; gap:1rem; align-items:center;">
+<span style="font-size:0.9rem; color:#6b7280;">
+Viewing: <strong>Compact Template</strong>
+</span>
+
+<button type="button" class="btn-download" onclick="window.print()">
+Download PDF
+</button>
+</div>
+
+</div>
+</section>
+
+<main>
+<div class="compact-wrapper">
+
+<div class="compact-header">
+<h1><%= cv.fullName %></h1>
+<div class="compact-contact">
+<%= cv.email %> | <%= cv.phone %> | <%= cv.location %>
+</div>
+</div>
+
+<% if (cv.summary) { %>
+<div class="compact-section">
+<h3>Professional Summary</h3>
+<p><%= cv.summary %></p>
+</div>
+<% } %>
+
+<% if (cv.experience && cv.experience.company) { %>
+<div class="compact-section">
+<h3>Work Experience</h3>
+
+<div class="compact-item">
+<strong><%= cv.experience.role %> – <%= cv.experience.company %></strong>
+<div class="compact-dates">
+<%= cv.experience.startYear %> - <%= cv.experience.endYear %>
+</div>
+<div class="clear"></div>
+<p><%= cv.experience.details %></p>
+</div>
+
+</div>
+<% } %>
+
+<% if (cv.education && cv.education.school) { %>
+<div class="compact-section">
+<h3>Education</h3>
+
+<div class="compact-item">
+<strong><%= cv.education.degree %> – <%= cv.education.school %></strong>
+<div class="compact-dates">
+<%= cv.education.startYear %> - <%= cv.education.endYear %>
+</div>
+<div class="clear"></div>
+<p><%= cv.education.details %></p>
+</div>
+
+</div>
+<% } %>
+
+<% if (cv.skills) { %>
+<div class="compact-section">
+<h3>Skills</h3>
+<p><%= cv.skills %></p>
+</div>
+<% } %>
+
+</div>
+</main>
+
+</body>
+</html>

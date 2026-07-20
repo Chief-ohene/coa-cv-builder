@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%= cv.fullName %> - Executive Template</title>
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/cv-preview.css">
+
+<style>
+.btn-download {
+    background: #00c853;
+    color: #ffffff;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-download:hover {
+    background: #00b94a;
+    transform: translateY(-2px);
+}
+
+.exec-wrapper {
+    max-width: 820px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 55px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    font-family: Arial, sans-serif;
+    line-height: 1.45;
+}
+
+.exec-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.exec-header h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+}
+
+.exec-header p {
+    font-size: 14px;
+    color: #555;
+}
+
+.exec-section {
+    margin-bottom: 30px;
+}
+
+.exec-section h3 {
+    font-size: 16px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #111;
+    padding-bottom: 6px;
+    margin-bottom: 14px;
+    letter-spacing: 0.5px;
+}
+
+.exec-item {
+    margin-bottom: 12px;
+}
+
+.exec-dates {
+    float: right;
+    font-size: 13px;
+    color: #666;
+}
+
+.clear { clear: both; }
+
+@media print {
+    body { background: #fff; }
+    .exec-wrapper {
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<nav class="navbar">
+<div class="nav-container">
+<div class="logo-section">
+<img src="/images/logo.png" alt="Logo" class="logo">
+<h1>C.O.A. CV BUILDER</h1>
+</div>
+<div class="nav-links">
+<a href="/dashboard">Dashboard</a>
+<a href="/cv/my-cvs">My CVs</a>
+<a href="/auth/logout" class="btn-primary">Logout</a>
+</div>
+</div>
+</nav>
+</header>
+
+<section class="cv-preview-toolbar">
+<div class="toolbar-inner">
+<a href="/cv/my-cvs" class="btn-secondary">← Back to My CVs</a>
+
+<div style="display:flex; gap:1rem; align-items:center;">
+<span style="font-size:0.9rem; color:#6b7280;">
+Viewing: <strong>Executive Template</strong>
+</span>
+
+<button type="button" class="btn-download" onclick="window.print()">
+Download PDF
+</button>
+</div>
+
+</div>
+</section>
+
+<main>
+<div class="exec-wrapper">
+
+<div class="exec-header">
+<h1><%= cv.fullName %></h1>
+<p><%= cv.email %> | <%= cv.phone %> | <%= cv.location %></p>
+</div>
+
+<% if (cv.summary) { %>
+<div class="exec-section">
+<h3>Professional Summary</h3>
+<p><%= cv.summary %></p>
+</div>
+<% } %>
+
+<% if (cv.experience && cv.experience.company) { %>
+<div class="exec-section">
+<h3>Experience</h3>
+<div class="exec-item">
+<strong><%= cv.experience.role %> – <%= cv.experience.company %></strong>
+<div class="exec-dates">
+<%= cv.experience.startYear %> - <%= cv.experience.endYear %>
+</div>
+<div class="clear"></div>
+<p><%= cv.experience.details %></p>
+</div>
+</div>
+<% } %>
+
+<% if (cv.education && cv.education.school) { %>
+<div class="exec-section">
+<h3>Education</h3>
+<div class="exec-item">
+<strong><%= cv.education.degree %> – <%= cv.education.school %></strong>
+<div class="exec-dates">
+<%= cv.education.startYear %> - <%= cv.education.endYear %>
+</div>
+<div class="clear"></div>
+<p><%= cv.education.details %></p>
+</div>
+</div>
+<% } %>
+
+<% if (cv.skills) { %>
+<div class="exec-section">
+<h3>Skills</h3>
+<p><%= cv.skills %></p>
+</div>
+<% } %>
+
+</div>
+</main>
+
+</body>
+</html>
