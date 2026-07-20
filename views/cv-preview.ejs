@@ -3,108 +3,148 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><%= cv.fullName || 'CV Preview' %> - C.O.A. CV BUILDER</title>
+<title><%= cv.fullName %> - CV Preview</title>
 
 <link rel="stylesheet" href="/css/style.css">
-<link rel="stylesheet" href="/css/cv-preview.css">
 
 <style>
+body {
+    background: #f3f4f6;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.preview-wrapper {
+    max-width: 800px;
+    margin: 60px auto;
+    background: #ffffff;
+    padding: 60px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.preview-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.preview-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.preview-contact {
+    font-size: 14px;
+    color: #555;
+}
+
+.preview-section {
+    margin-bottom: 30px;
+}
+
+.preview-section h2 {
+    font-size: 16px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #00c853;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+.preview-section p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.toolbar {
+    max-width: 800px;
+    margin: 30px auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .btn-download {
     background: #00c853;
     color: #ffffff;
     padding: 12px 28px;
-    border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     font-weight: 600;
+    border: none;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: 0.3s ease;
 }
 
 .btn-download:hover {
     background: #00b94a;
     transform: translateY(-2px);
 }
+
+@media print {
+    body {
+        background: #ffffff;
+    }
+    .toolbar {
+        display: none;
+    }
+    .preview-wrapper {
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<header>
-<nav class="navbar">
-<div class="nav-container">
-<div class="logo-section">
-<img src="/images/logo.png" alt="Logo" class="logo">
-<h1>C.O.A. CV BUILDER</h1>
-</div>
-<div class="nav-links">
-<a href="/dashboard">Dashboard</a>
-<a href="/cv/my-cvs">My CVs</a>
-<a href="/auth/logout" class="btn-primary">Logout</a>
-</div>
-</div>
-</nav>
-</header>
-
-<section class="cv-preview-toolbar">
-<div class="toolbar-inner">
-<a href="/cv/my-cvs" class="btn-secondary">← Back to My CVs</a>
-
-<div style="display: flex; gap: 1rem; align-items: center;">
-<span style="font-size: 0.9rem; color: #6b7280;">
-Viewing: <strong>Classic Template</strong>
-</span>
-
-<button type="button" class="btn-download" onclick="window.print()">
-Download PDF
-</button>
+<div class="toolbar">
+<a href="/cv/my-cvs">← Back to My CVs</a>
+<button class="btn-download" onclick="window.print()">Download PDF</button>
 </div>
 
-</div>
-</section>
+<div class="preview-wrapper">
 
-<main class="cv-preview-main">
-<div class="resume-wrapper">
-
-<section class="resume-header">
-<h1 class="resume-name"><%= cv.fullName || '' %></h1>
-<p class="resume-title"><%= cv.jobTitle || '' %></p>
-<div class="resume-contact">
-<% if (cv.location) { %>
-<span><%= cv.location %></span>
-<% } %>
-<% if (cv.email) { %>
-<span><%= cv.email %></span>
-<% } %>
-<% if (cv.phone) { %>
-<span><%= cv.phone %></span>
-<% } %>
+<div class="preview-header">
+<h1><%= cv.fullName %></h1>
+<div class="preview-contact">
+<%= cv.email %> | <%= cv.phone %> | <%= cv.location %>
 </div>
-</section>
+</div>
 
 <% if (cv.summary) { %>
-<section class="resume-section">
-<h2 class="section-title">Professional Summary</h2>
-<div class="section-content">
+<div class="preview-section">
+<h2>Professional Summary</h2>
 <p><%= cv.summary %></p>
 </div>
-</section>
 <% } %>
 
-<% if (cv.experience && (cv.experience.company || cv.experience.details)) { %>
-<section class="resume-section">
-<h2 class="section-title">Work Experience</h2>
-<div class="section-content">
-<% if (cv.experience.company || cv.experience.role) { %>
-<p>
-<strong><%= cv.experience.role || '' %></strong>
-<% if (cv.experience.company) { %>
-– <%= cv.experience.company %>
+<% if (cv.experience && cv.experience.company) { %>
+<div class="preview-section">
+<h2>Work Experience</h2>
+<p><strong><%= cv.experience.role %></strong> – <%= cv.experience.company %></p>
+<p><%= cv.experience.startYear %> - <%= cv.experience.endYear %></p>
+<p><%= cv.experience.details %></p>
+</div>
 <% } %>
-</p>
+
+<% if (cv.education && cv.education.school) { %>
+<div class="preview-section">
+<h2>Education</h2>
+<p><strong><%= cv.education.degree %></strong> – <%= cv.education.school %></p>
+<p><%= cv.education.startYear %> - <%= cv.education.endYear %></p>
+<p><%= cv.education.details %></p>
+</div>
 <% } %>
-<% if (cv.experience.location || cv.experience.startYear || cv.experience.endYear) { %>
-<p>
-<% if (cv.experience.location) { %>
-<%= cv.experience.location %> •
+
+<% if (cv.skills) { %>
+<div class="preview-section">
+<h2>Skills</h2>
+<p><%= cv.skills %></p>
+</div>
 <% } %>
-<%= 
+
+</div>
+
+</body>
+</html>
