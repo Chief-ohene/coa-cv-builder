@@ -262,35 +262,34 @@ Select a layout that best matches your career goals and industry.
 
 </div>
 </div>
-
 <!-- MINIMAL -->
 <div class="template-card">
-<div class="template-preview">
-<div style="width:85%; background:#fff; padding:15px; box-shadow:0 4px 12px rgba(0,0,0,0.08); height:180px; display:flex; flex-direction:column; justify-content:center;">
-<h4 style="font-size:14px; font-weight:bold; margin-bottom:6px;">John Doe</h4>
-<p style="font-size:10px; color:#777; margin-bottom:10px;">john@email.com | Accra</p>
-<p style="font-size:9px;">Minimal whitespace-focused layout.</p>
-</div>
-</div>
+    <div class="template-preview">
+        <div style="width:85%; background:#fff; padding:18px; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+            <h4 style="font-size:15px; font-weight:bold;">John Doe</h4>
+            <p style="font-size:11px; color:#777;">john@email.com | 0240000000 | Accra</p>
+            <p style="font-size:10px; margin-top:8px;">Minimal whitespace-focused layout.</p>
+        </div>
+    </div>
 
-<div class="template-body">
-<div class="template-name">Minimal Clean</div>
-<div class="template-bestfor">Best for modern & design roles</div>
-<div class="template-benefits">
-• Wide whitespace  
-• Large typography  
-• Clean layout  
-</div>
+    <div class="template-body">
+        <div class="template-name">Minimal Clean</div>
+        <div class="template-bestfor">Best for modern & design roles</div>
+        <div class="template-benefits">
+            • Wide whitespace<br>
+            • Large typography<br>
+            • Clean layout
+        </div>
 
-<div class="template-actions">
-<% if (user && user.isPremium) { %>
-<a href="/cv/my-cvs?tpl=minimal" class="btn-template btn-active">Use Template</a>
-<% } else { %>
-<div class="premium-tag">Premium</div>
-<a href="/upgrade" class="btn-template btn-upgrade">Upgrade to Use</a>
-<% } %>
-</div>
-</div>
+        <div class="template-actions">
+            <% if (user && user.isPremium) { %>
+                <a href="/cv/my-cvs?tpl=minimal" class="btn-template btn-active">Use Template</a>
+            <% } else { %>
+                <div class="premium-tag">Premium</div>
+                <a href="/upgrade" class="btn-template btn-upgrade">Upgrade to Use</a>
+            <% } %>
+        </div>
+    </div>
 </div>
 
 </body>
