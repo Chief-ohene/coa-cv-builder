@@ -6,6 +6,7 @@ const cvSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
+
     // Top-level info
     fullName: String,
     jobTitle: String,
@@ -14,17 +15,17 @@ const cvSchema = new mongoose.Schema({
     email: String,
     location: String,
 
-    // Structured education (single entry for now)
-    education: {
+    // Education (multiple entries: University, SHS, etc.)
+    education: [{
         school: String,
         degree: String,
         location: String,
         startYear: String,
         endYear: String,
         details: String
-    },
+    }],
 
-    // Structured experience (single entry for now)
+    // Experience (single entry for now)
     experience: {
         company: String,
         role: String,
@@ -34,8 +35,10 @@ const cvSchema = new mongoose.Schema({
         details: String
     },
 
-    // Skills can stay as free text for now
+    // Other sections
     skills: String,
+    languages: String,
+    certifications: String,
 
     createdAt: {
         type: Date,
@@ -43,6 +46,4 @@ const cvSchema = new mongoose.Schema({
     }
 });
 
-const CV = mongoose.model('CV', cvSchema);
-
-module.exports = CV;
+module.exports = mongoose.model('CV', cvSchema);
