@@ -143,12 +143,18 @@ body {
 </div>
 <% } %>
 
-<% if (cv.education && cv.education.school) { %>
+<% if (cv.education && cv.education.length > 0) { %>
 <div class="preview-section">
 <h2>Education</h2>
-<p><strong><%= cv.education.degree %></strong> – <%= cv.education.school %></p>
-<p><%= cv.education.startYear %> - <%= cv.education.endYear %></p>
-<p><%= cv.education.details %></p>
+
+<% cv.education.forEach(function(edu) { %>
+<p>
+<strong><%= edu.degree %></strong> – <%= edu.school %><br>
+<%= edu.startYear %> - <%= edu.endYear %><br>
+<%= edu.details %>
+</p>
+<% }) %>
+
 </div>
 <% } %>
 
@@ -159,7 +165,35 @@ body {
 </div>
 <% } %>
 
+<% if (cv.languages) { %>
+<div class="preview-section">
+<h2>Languages</h2>
+<p><%= cv.languages %></p>
 </div>
+<% } %>
+
+<% if (cv.certifications) { %>
+<div class="preview-section">
+<h2>Certifications</h2>
+<p><%= cv.certifications %></p>
+</div>
+<% } %>
+
+</div>
+
+<% if (cv.languages) { %>
+<div class="preview-section">
+<h2>Languages</h2>
+<p><%= cv.languages %></p>
+</div>
+<% } %>
+
+<% if (cv.languages) { %>
+<div class="preview-section">
+<h2>Languages</h2>
+<p><%= cv.languages %></p>
+</div>
+<% } %>
 
 </body>
 </html>
