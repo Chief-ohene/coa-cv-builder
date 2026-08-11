@@ -160,13 +160,32 @@ border-bottom: 2px solid #2563eb;  /* subtle professional blue */
 </p>
 <% } %>
 
-<% if (cv.education && cv.education.school) { %>
+<% if (cv.education && cv.education.length > 0) { %>
 <h3 class="section-title">Education</h3>
+
+<% cv.education.forEach(function(edu) { %>
 <p class="section-text">
-<strong><%= cv.education.degree %></strong> – <%= cv.education.school %><br>
-<%= cv.education.startYear %> - <%= cv.education.endYear %><br>
-<%= cv.education.details %>
+<strong><%= edu.degree || '' %></strong> – <%= edu.school || '' %><br>
+<%= edu.startYear || '' %> - <%= edu.endYear || '' %><br>
+<%= edu.details || '' %>
 </p>
+<br>
+<% }) %>
+
+<% } %>
+
+<% if (cv.languages) { %>
+<div class="section">
+<h3>Languages</h3>
+<p><%= cv.languages %></p>
+</div>
+<% } %>
+
+<% if (cv.certifications) { %>
+<div class="section">
+<h3>Certifications</h3>
+<p><%= cv.certifications %></p>
+</div>
 <% } %>
 
 </div>
