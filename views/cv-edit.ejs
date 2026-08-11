@@ -28,226 +28,141 @@
     <section class="cv-builder-container">
         <div class="cv-builder-box">
             <h2>Edit CV</h2>
-            <p class="cv-subtitle">Update your CV details below. Changes will be saved immediately.</p>
+            <p class="cv-subtitle">Update your CV details below. Changes will be saved when you click “Save Changes”.</p>
 
             <% if (error) { %>
                 <div class="message error"><%= error %></div>
             <% } %>
 
             <form action="/cv/<%= cv._id %>/edit" method="POST" class="cv-form">
+
                 <h3>Personal Information</h3>
                 <div class="cv-grid">
                     <div class="form-group">
                         <label for="fullName">Full Name</label>
-                        <input
-                            type="text"
-                            id="fullName"
-                            name="fullName"
-                            value="<%= cv.fullName || '' %>"
-                            required
-                        >
+                        <input type="text" id="fullName" name="fullName" value="<%= cv.fullName || '' %>" required>
                     </div>
 
                     <div class="form-group">
                         <label for="jobTitle">Professional Title</label>
-                        <input
-                            type="text"
-                            id="jobTitle"
-                            name="jobTitle"
-                            value="<%= cv.jobTitle || '' %>"
-                            placeholder="e.g. Software Developer, Accountant"
-                            required
-                        >
+                        <input type="text" id="jobTitle" name="jobTitle" value="<%= cv.jobTitle || '' %>" required>
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value="<%= cv.email || user.email %>"
-                            required
-                        >
+                        <input type="email" id="email" name="email" value="<%= cv.email || user.email %>" required>
                     </div>
 
                     <div class="form-group">
                         <label for="phone">Phone</label>
-                        <input
-                            type="tel"
-                            id="phone"
-                            name="phone"
-                            value="<%= cv.phone || user.phone %>"
-                            required
-                        >
+                        <input type="tel" id="phone" name="phone" value="<%= cv.phone || user.phone %>" required>
                     </div>
 
                     <div class="form-group full-width">
                         <label for="location">Location</label>
-                        <input
-                            type="text"
-                            id="location"
-                            name="location"
-                            value="<%= cv.location || '' %>"
-                            placeholder="e.g. Accra, Ghana"
-                        >
+                        <input type="text" id="location" name="location" value="<%= cv.location || '' %>">
                     </div>
                 </div>
 
                 <h3>Professional Summary</h3>
                 <div class="form-group">
-                    <textarea
-                        id="summary"
-                        name="summary"
-                        rows="4"
-                        placeholder="2–4 sentences summarising your experience, key strengths, and goals."
-                    ><%= cv.summary || '' %></textarea>
+                    <textarea id="summary" name="summary" rows="4"><%= cv.summary || '' %></textarea>
                 </div>
 
                 <h3>Education</h3>
-                <div class="cv-grid">
-                    <div class="form-group">
-                        <label for="eduSchool">School / Institution</label>
-                        <input
-                            type="text"
-                            id="eduSchool"
-                            name="eduSchool"
-                            value="<%= cv.education && cv.education.school ? cv.education.school : '' %>"
-                            placeholder="e.g. University of Ghana"
-                        >
-                    </div>
 
-                    <div class="form-group">
-                        <label for="eduDegree">Degree / Qualification</label>
-                        <input
-                            type="text"
-                            id="eduDegree"
-                            name="eduDegree"
-                            value="<%= cv.education && cv.education.degree ? cv.education.degree : '' %>"
-                            placeholder="e.g. BSc Computer Science"
-                        >
-                    </div>
+                <div id="education-section">
+                    <% 
+                        const eduList = (cv.education && Array.isArray(cv.education) && cv.education.length > 0)
+                            ? cv.education
+                            : [{ school:'', degree:'', location:'', startYear:'', endYear:'', details:'' }];
+                    %>
 
-                    <div class="form-group">
-                        <label for="eduLocation">Location</label>
-                        <input
-                            type="text"
-                            id="eduLocation"
-                            name="eduLocation"
-                            value="<%= cv.education && cv.education.location ? cv.education.location : '' %>"
-                            placeholder="e.g. Legon, Accra"
-                        >
-                    </div>
+                    <% eduList.forEach(function(edu, index) { %>
+                        <div class="cv-grid education-block">
+                            <div class="form-group">
+                                <label>School / Institution</label>
+                                <input type="text" name="education[<%= index %>][school]" value="<%= edu.school || '' %>">
+                            </div>
 
-                    <div class="form-group">
-                        <label for="eduStartYear">Start Year</label>
-                        <input
-                            type="text"
-                            id="eduStartYear"
-                            name="eduStartYear"
-                            value="<%= cv.education && cv.education.startYear ? cv.education.startYear : '' %>"
-                            placeholder="e.g. 2018"
-                        >
-                    </div>
+                            <div class="form-group">
+                                <label>Degree / Qualification</label>
+                                <input type="text" name="education[<%= index %>][degree]" value="<%= edu.degree || '' %>">
+                            </div>
 
-                    <div class="form-group">
-                        <label for="eduEndYear">End Year</label>
-                        <input
-                            type="text"
-                            id="eduEndYear"
-                            name="eduEndYear"
-                            value="<%= cv.education && cv.education.endYear ? cv.education.endYear : '' %>"
-                            placeholder="e.g. 2022 or Present"
-                        >
-                    </div>
+                            <div class="form-group">
+                                <label>Location</label>
+                                <input type="text" name="education[<%= index %>][location]" value="<%= edu.location || '' %>">
+                            </div>
 
-                    <div class="form-group full-width">
-                        <label for="eduDetails">Details / Achievements</label>
-                        <textarea
-                            id="eduDetails"
-                            name="eduDetails"
-                            rows="3"
-                            placeholder="Mention key courses, GPA (if strong), leadership roles, awards, etc."
-                        ><%= cv.education && cv.education.details ? cv.education.details : '' %></textarea>
-                    </div>
+                            <div class="form-group">
+                                <label>Start Year</label>
+                                <input type="text" name="education[<%= index %>][startYear]" value="<%= edu.startYear || '' %>">
+                            </div>
+
+                            <div class="form-group">
+                                <label>End Year</label>
+                                <input type="text" name="education[<%= index %>][endYear]" value="<%= edu.endYear || '' %>">
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label>Details / Achievements</label>
+                                <textarea name="education[<%= index %>][details]" rows="3"><%= edu.details || '' %></textarea>
+                            </div>
+                        </div>
+                    <% }) %>
                 </div>
+
+                <button type="button" id="add-education" class="btn-secondary">
+                    + Add Another Education
+                </button>
 
                 <h3>Work Experience</h3>
                 <div class="cv-grid">
                     <div class="form-group">
                         <label for="expCompany">Company</label>
-                        <input
-                            type="text"
-                            id="expCompany"
-                            name="expCompany"
-                            value="<%= cv.experience && cv.experience.company ? cv.experience.company : '' %>"
-                            placeholder="e.g. C.O.A. TECH"
-                        >
+                        <input type="text" id="expCompany" name="expCompany" value="<%= cv.experience?.company || '' %>">
                     </div>
 
                     <div class="form-group">
                         <label for="expRole">Job Title</label>
-                        <input
-                            type="text"
-                            id="expRole"
-                            name="expRole"
-                            value="<%= cv.experience && cv.experience.role ? cv.experience.role : '' %>"
-                            placeholder="e.g. Software Developer"
-                        >
+                        <input type="text" id="expRole" name="expRole" value="<%= cv.experience?.role || '' %>">
                     </div>
 
                     <div class="form-group">
                         <label for="expLocation">Location</label>
-                        <input
-                            type="text"
-                            id="expLocation"
-                            name="expLocation"
-                            value="<%= cv.experience && cv.experience.location ? cv.experience.location : '' %>"
-                            placeholder="e.g. Accra, Ghana"
-                        >
+                        <input type="text" id="expLocation" name="expLocation" value="<%= cv.experience?.location || '' %>">
                     </div>
 
                     <div class="form-group">
                         <label for="expStartYear">Start Year</label>
-                        <input
-                            type="text"
-                            id="expStartYear"
-                            name="expStartYear"
-                            value="<%= cv.experience && cv.experience.startYear ? cv.experience.startYear : '' %>"
-                            placeholder="e.g. 2022"
-                        >
+                        <input type="text" id="expStartYear" name="expStartYear" value="<%= cv.experience?.startYear || '' %>">
                     </div>
 
                     <div class="form-group">
                         <label for="expEndYear">End Year</label>
-                        <input
-                            type="text"
-                            id="expEndYear"
-                            name="expEndYear"
-                            value="<%= cv.experience && cv.experience.endYear ? cv.experience.endYear : '' %>"
-                            placeholder="e.g. 2024 or Present"
-                        >
+                        <input type="text" id="expEndYear" name="expEndYear" value="<%= cv.experience?.endYear || '' %>">
                     </div>
 
                     <div class="form-group full-width">
                         <label for="expDetails">Responsibilities / Achievements</label>
-                        <textarea
-                            id="expDetails"
-                            name="expDetails"
-                            rows="4"
-                            placeholder="Use bullet-style lines describing what you did and achieved."
-                        ><%= cv.experience && cv.experience.details ? cv.experience.details : '' %></textarea>
+                        <textarea id="expDetails" name="expDetails" rows="4"><%= cv.experience?.details || '' %></textarea>
                     </div>
                 </div>
 
                 <h3>Skills</h3>
                 <div class="form-group">
-                    <textarea
-                        id="skills"
-                        name="skills"
-                        rows="4"
-                        placeholder="List your key skills, separated by commas or on separate lines."
-                    ><%= cv.skills || '' %></textarea>
+                    <textarea id="skills" name="skills" rows="4"><%= cv.skills || '' %></textarea>
+                </div>
+
+                <h3>Languages (Optional)</h3>
+                <div class="form-group">
+                    <textarea id="languages" name="languages" rows="3"><%= cv.languages || '' %></textarea>
+                </div>
+
+                <h3>Certifications / Training (Optional)</h3>
+                <div class="form-group">
+                    <textarea id="certifications" name="certifications" rows="3"><%= cv.certifications || '' %></textarea>
                 </div>
 
                 <div class="cv-actions">
@@ -257,5 +172,25 @@
             </form>
         </div>
     </section>
+
+    <script>
+        let educationIndex = <%= (cv.education && Array.isArray(cv.education) && cv.education.length > 0) ? cv.education.length : 1 %>;
+
+        document.getElementById('add-education').addEventListener('click', function () {
+            const container = document.getElementById('education-section');
+            const blocks = document.querySelectorAll('.education-block');
+            const lastBlock = blocks[blocks.length - 1];
+            const newBlock = lastBlock.cloneNode(true);
+
+            newBlock.querySelectorAll('input, textarea').forEach(function (input) {
+                input.name = input.name.replace(/\[\d+\]/, '[' + educationIndex + ']');
+                input.value = '';
+            });
+
+            container.appendChild(newBlock);
+            educationIndex++;
+        });
+    </script>
+
 </body>
 </html>
