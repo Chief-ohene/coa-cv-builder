@@ -79,9 +79,10 @@ body {
     background: #00b94a;
     transform: translateY(-2px);
 }
+
 .btn-back {
-    background: #fff7e6;        /* Soft warm background */
-    color: #d97706;             /* Rich amber text */
+    background: #fff7e6;
+    color: #d97706;
     padding: 12px 24px;
     border-radius: 10px;
     font-weight: 600;
@@ -95,13 +96,10 @@ body {
     color: #ffffff;
     transform: translateY(-2px);
 }
+
 @media print {
-    body {
-        background: #ffffff;
-    }
-    .toolbar {
-        display: none;
-    }
+    body { background: #ffffff; }
+    .toolbar { display: none; }
     .preview-wrapper {
         box-shadow: none;
         margin: 0;
@@ -114,86 +112,73 @@ body {
 <body>
 
 <div class="toolbar">
-<a href="/cv/my-cvs" class="btn-back">← Back to My CVs</a>
-<button class="btn-download" onclick="window.print()">Download PDF</button>
+    <a href="/cv/my-cvs" class="btn-back">← Back to My CVs</a>
+    <button class="btn-download" onclick="window.print()">Download PDF</button>
 </div>
 
 <div class="preview-wrapper">
 
-<div class="preview-header">
-<h1><%= cv.fullName %></h1>
-<div class="preview-contact">
-<%= cv.email %> | <%= cv.phone %> | <%= cv.location %>
-</div>
-</div>
+    <div class="preview-header">
+        <h1><%= cv.fullName %></h1>
+        <div class="preview-contact">
+            <%= cv.email %> | <%= cv.phone %> | <%= cv.location %>
+        </div>
+    </div>
 
-<% if (cv.summary) { %>
-<div class="preview-section">
-<h2>Professional Summary</h2>
-<p><%= cv.summary %></p>
+    <% if (cv.summary) { %>
+    <div class="preview-section">
+        <h2>Professional Summary</h2>
+        <p><%= cv.summary %></p>
+    </div>
+    <% } %>
+
+    <% if (cv.experience && cv.experience.company) { %>
+    <div class="preview-section">
+        <h2>Work Experience</h2>
+        <p><strong><%= cv.experience.role %></strong> – <%= cv.experience.company %></p>
+        <p><%= cv.experience.startYear %> - <%= cv.experience.endYear %></p>
+        <p><%= cv.experience.details %></p>
+    </div>
+    <% } %>
+
+    <% if (cv.education && cv.education.length > 0) { %>
+    <div class="preview-section">
+        <h2>Education</h2>
+
+        <% cv.education.forEach(function(edu) { %>
+            <p>
+                <strong><%= edu.degree || '' %></strong> – <%= edu.school || '' %><br>
+                <%= edu.startYear || '' %> - <%= edu.endYear || '' %><br>
+                <%= edu.details || '' %>
+            </p>
+            <br>
+        <% }) %>
+
+    </div>
+    <% } %>
+
+    <% if (cv.skills) { %>
+    <div class="preview-section">
+        <h2>Skills</h2>
+        <p><%= cv.skills %></p>
+    </div>
+    <% } %>
+
+    <% if (cv.languages) { %>
+    <div class="preview-section">
+        <h2>Languages</h2>
+        <p><%= cv.languages %></p>
+    </div>
+    <% } %>
+
+    <% if (cv.certifications) { %>
+    <div class="preview-section">
+        <h2>Certifications</h2>
+        <p><%= cv.certifications %></p>
+    </div>
+    <% } %>
+
 </div>
-<% } %>
-
-<% if (cv.experience && cv.experience.company) { %>
-<div class="preview-section">
-<h2>Work Experience</h2>
-<p><strong><%= cv.experience.role %></strong> – <%= cv.experience.company %></p>
-<p><%= cv.experience.startYear %> - <%= cv.experience.endYear %></p>
-<p><%= cv.experience.details %></p>
-</div>
-<% } %>
-
-<% if (cv.education && cv.education.length > 0) { %>
-<div class="preview-section">
-<h2>Education</h2>
-
-<% cv.education.forEach(function(edu) { %>
-<p>
-<strong><%= edu.degree %></strong> – <%= edu.school %><br>
-<%= edu.startYear %> - <%= edu.endYear %><br>
-<%= edu.details %>
-</p>
-<% }) %>
-
-</div>
-<% } %>
-
-<% if (cv.skills) { %>
-<div class="preview-section">
-<h2>Skills</h2>
-<p><%= cv.skills %></p>
-</div>
-<% } %>
-
-<% if (cv.languages) { %>
-<div class="preview-section">
-<h2>Languages</h2>
-<p><%= cv.languages %></p>
-</div>
-<% } %>
-
-<% if (cv.certifications) { %>
-<div class="preview-section">
-<h2>Certifications</h2>
-<p><%= cv.certifications %></p>
-</div>
-<% } %>
-
-</div>
-
-<% if (cv.languages) { %>
-<div class="preview-section">
-<h2>Languages</h2>
-<p><%= cv.languages %></p>
-</div>
-<% } %>
-
-<% if (cv.languages) { %>
-<div class="preview-section">
-<h2>Languages</h2>
-<p><%= cv.languages %></p>
-</div>
-<% } %>
 
 </body>
 </html>
