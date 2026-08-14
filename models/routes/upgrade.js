@@ -3,8 +3,16 @@ const axios = require('axios');
 const router = express.Router();
 const User = require('../models/User');
 
+// Middleware to ensure user is authenticated
+function isAuthenticated(req, res, next) {
+    if (!req.userId) {
+        return res.redirect('/login');
+    }
+    next();
+}
+
 // GET /upgrade – show upgrade page
-router.get('/', async (req, res) => {
+router.get('/', isAuthenticated, async (req, res) => {
     try {
         const user = await User.findById(req.userId);
 
@@ -17,31 +25,60 @@ router.get('/', async (req, res) => {
             message = 'Payment was not successful. Please try again.';
         }
 
-        return res.render('upgrade', {
-            user,
-            message
-        });
+        return res.render('upgrade', { user, message });
     } catch (err) {
         console.error(err);
         return res.redirect('/dashboard');
     }
 });
 
-// POST /upgrade/paystack/initiate – start Paystack payment
-router.post('/paystack/initiate', async (req, res) => {
+// POST /upgrade/paystack/initiate – start Paystack payment (supports promo)
+router.post('/paystack/initiate', isAuthenticated, async (req, res) => {
     try {
         const user = await User.findById(req.userId);
 
-        const amountGHS = 40; // monthly price
-        const amountPesewas = amountGHS * 100; // Paystack amount in kobo/pesewas
+        // Normal price
+        const normalAmountGHS = 40;
+
+        // Promo handling (normalize: remove spaces, uppercase)
+        const rawPromo = (req.body.promoCode || '').toString();
+        const enteredPromo = rawPromo.replace(/\s+/g, '').trim().toUpperCase();
+
+        const promoFromEnv = (process.env.PROMO_CODE || '').replace(/\s+/g, '').trim().toUpperCase();
+        const promoExpiry = process.env.PROMO_EXPIRY ? new Date(process.env.PROMO_EXPIRY) : null;
+        const discountAmountGHS = Number(process.env.PROMO_DISCOUNT_AMOUNT_GHS || 0);
+
+        let amountGHS = normalAmountGHS;
+        let promoCodeUsed = null;
+
+        const now = new Date();
+        const promoValid =
+            promoFromEnv &&
+            enteredPromo &&
+            enteredPromo === promoFromEnv &&
+            discountAmountGHS > 0 &&
+            (!promoExpiry || now <= promoExpiry);
+
+        if (promoValid) {
+            amountGHS = discountAmountGHS; // ✅ Apply discounted amount
+            promoCodeUsed = enteredPromo;
+        }
+
+        const amountPesewas = amountGHS * 100; // ✅ Convert to pesewas
 
         const response = await axios.post(
             'https://api.paystack.co/transaction/initialize',
             {
                 email: user.email,
-                amount: amountPesewas,
+                amount: amountPesewas, // ✅ Uses discounted amount
                 currency: 'GHS',
-                callback_url: process.env.PAYSTACK_CALLBACK_URL
+                callback_url: process.env.PAYSTACK_CALLBACK_URL,
+                metadata: {
+                    userId: user._id.toString(),
+                    promoCodeUsed: promoCodeUsed,
+                    originalAmount: normalAmountGHS,
+                    finalAmount: amountGHS
+                }
             },
             {
                 headers: {
@@ -58,23 +95,23 @@ router.post('/paystack/initiate', async (req, res) => {
             return res.redirect('/upgrade?status=failed');
         }
 
-        // Redirect user to Paystack checkout page
         return res.redirect(data.data.authorization_url);
+
     } catch (err) {
         console.error('Paystack init exception:', err.response ? err.response.data : err);
         return res.redirect('/upgrade?status=failed');
     }
 });
 
-// GET /upgrade/paystack/callback – Paystack redirects user here after payment
+// GET /upgrade/paystack/callback – Paystack redirects user here
 router.get('/paystack/callback', async (req, res) => {
     try {
         const reference = req.query.reference;
+
         if (!reference) {
             return res.redirect('/upgrade?status=failed');
         }
 
-        // Verify transaction
         const verifyResponse = await axios.get(
             `https://api.paystack.co/transaction/verify/${reference}`,
             {
@@ -91,21 +128,33 @@ router.get('/paystack/callback', async (req, res) => {
             return res.redirect('/upgrade?status=failed');
         }
 
-        // Payment successful – upgrade user
-        // For now: 1 month premium
-        const userId = req.userId;
+        const userId = data.data.metadata ? data.data.metadata.userId : null;
+        const promoCodeUsed = data.data.metadata ? data.data.metadata.promoCodeUsed : null;
+
+        if (!userId) {
+            console.error('No userId found in metadata');
+            return res.redirect('/upgrade?status=failed');
+        }
+
         const user = await User.findById(userId);
 
         if (!user) {
-            return res.redirect('/login');
+            console.error('User not found');
+            return res.redirect('/upgrade?status=failed');
         }
 
+        // Set premium for 1 month
         const now = new Date();
         const expiry = new Date(now);
         expiry.setMonth(expiry.getMonth() + 1);
 
         user.isPremium = true;
         user.premiumExpiry = expiry;
+
+        if (promoCodeUsed) {
+            user.promoCodeUsed = promoCodeUsed;
+        }
+
         await user.save();
 
         return res.redirect('/upgrade?status=success');
