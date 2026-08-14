@@ -24,6 +24,7 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Please provide a password'],
         minlength: [6, 'Password must be at least 6 characters long']
     },
+
     isPremium: {
         type: Boolean,
         default: false
@@ -32,21 +33,27 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: null
     },
+
+    // ✅ Track promo usage (for collaborations/referrals)
+    promoCodeUsed: {
+        type: String,
+        default: null
+    },
+
     cvs: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'CV'
     }],
+
     createdAt: {
         type: Date,
         default: Date.now
     }
 });
 
-// Hash password before saving (no `next`, Mongoose 8 friendly)
+// Hash password before saving (Mongoose friendly)
 userSchema.pre('save', async function () {
-    // Only hash if password is new or was changed
     if (!this.isModified('password')) return;
-
     this.password = await bcrypt.hash(this.password, 12);
 });
 
@@ -55,6 +62,4 @@ userSchema.methods.comparePassword = function (candidatePassword) {
     return bcrypt.compare(candidatePassword, this.password);
 };
 
-const User = mongoose.model('User', userSchema);
-
-module.exports = User;
+module.exports = mongoose.model('User', userSchema);

@@ -89,8 +89,24 @@
                             </p>
                         <% } else { %>
                             <form action="/upgrade/paystack/initiate" method="POST" style="margin-top: 1.2rem;">
-                                <button type="submit" class="btn-plan premium-btn">Pay with Paystack →</button>
-                            </form>
+    <div style="margin-bottom: 0.8rem; text-align: left;">
+        <label for="promoCode" style="display:block; font-size:0.85rem; color:#374151; margin-bottom:0.35rem;">
+            Promo Code (Optional)
+        </label>
+        <input
+            type="text"
+            id="promoCode"
+            name="promoCode"
+            placeholder="e.g. EvansUgSrcPrez26"
+            style="width:100%; padding:0.7rem 0.8rem; border:1px solid #e5e7eb; border-radius:8px;"
+        >
+        <small style="display:block; margin-top:0.35rem; color:#6b7280;">
+            Enter a valid promo code to get a discounted Premium price.
+        </small>
+    </div>
+
+    <button type="submit" class="btn-plan premium-btn">Pay with Paystack →</button>
+</form>
                             <p style="font-size: 0.85rem; color: #6b7280; margin-top: 0.6rem;">
                                 Secure payment via Paystack (cards & Mobile Money).
                             </p>

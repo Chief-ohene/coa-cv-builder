@@ -73,43 +73,50 @@
                     ></textarea>
                 </div>
 
-                <h3>Education</h3>
-                <div class="cv-grid">
-                    <div class="form-group">
-                        <label for="eduSchool">School / Institution</label>
-                        <input type="text" id="eduSchool" name="eduSchool" placeholder="e.g. University of Ghana">
-                    </div>
+              <h3>Education</h3>
 
-                    <div class="form-group">
-                        <label for="eduDegree">Degree / Qualification</label>
-                        <input type="text" id="eduDegree" name="eduDegree" placeholder="e.g. BSc Computer Science">
-                    </div>
+<div id="education-section">
 
-                    <div class="form-group">
-                        <label for="eduLocation">Location</label>
-                        <input type="text" id="eduLocation" name="eduLocation" placeholder="e.g. Legon, Accra">
-                    </div>
+<div class="cv-grid education-block">
+    <div class="form-group">
+        <label>School / Institution</label>
+        <input type="text" name="education[0][school]" placeholder="e.g. University of Ghana">
+    </div>
 
-                    <div class="form-group">
-                        <label for="eduStartYear">Start Year</label>
-                        <input type="text" id="eduStartYear" name="eduStartYear" placeholder="e.g. 2018">
-                    </div>
+    <div class="form-group">
+        <label>Degree / Qualification</label>
+        <input type="text" name="education[0][degree]" placeholder="e.g. BSc Computer Science">
+    </div>
 
-                    <div class="form-group">
-                        <label for="eduEndYear">End Year</label>
-                        <input type="text" id="eduEndYear" name="eduEndYear" placeholder="e.g. 2022 or Present">
-                    </div>
+    <div class="form-group">
+        <label>Location</label>
+        <input type="text" name="education[0][location]" placeholder="e.g. Legon, Accra">
+    </div>
 
-                    <div class="form-group full-width">
-                        <label for="eduDetails">Details / Achievements</label>
-                        <textarea
-                            id="eduDetails"
-                            name="eduDetails"
-                            rows="3"
-                            placeholder="Mention key courses, GPA (if strong), leadership roles, awards, etc."
-                        ></textarea>
-                    </div>
-                </div>
+    <div class="form-group">
+        <label>Start Year</label>
+        <input type="text" name="education[0][startYear]" placeholder="e.g. 2018">
+    </div>
+
+    <div class="form-group">
+        <label>End Year</label>
+        <input type="text" name="education[0][endYear]" placeholder="e.g. 2022 or Present">
+    </div>
+
+    <div class="form-group full-width">
+        <label>Details / Achievements</label>
+        <textarea
+            name="education[0][details]"
+            rows="3"
+            placeholder="Mention key courses, GPA, leadership roles, awards, etc."></textarea>
+    </div>
+</div>
+
+</div>
+
+<button type="button" id="add-education" class="btn-secondary">
++ Add Another Education
+</button>
 
                 <h3>Work Experience</h3>
                 <div class="cv-grid">
@@ -158,6 +165,24 @@
                         placeholder="List your key skills, separated by commas or on separate lines. Example: JavaScript, Node.js, Problem Solving, Communication"
                     ></textarea>
                 </div>
+                <h3>Languages (Optional)</h3>
+<div class="form-group">
+    <textarea
+        id="languages"
+        name="languages"
+        rows="3"
+        placeholder="e.g. English (Fluent), Twi (Fluent), French (Basic)"
+    ></textarea>
+</div>
+<h3>Certifications / Training (Optional)</h3>
+<div class="form-group">
+    <textarea
+        id="certifications"
+        name="certifications"
+        rows="3"
+        placeholder="e.g. Google Data Analytics Certificate – 2024"
+    ></textarea>
+</div>
 
                 <div class="cv-actions">
                     <a href="/dashboard" class="btn-secondary">Cancel</a>
@@ -166,5 +191,26 @@
             </form>
         </div>
     </section>
+    <script>
+let educationIndex = 1;
+
+document.getElementById('add-education').addEventListener('click', function () {
+
+    const container = document.getElementById('education-section');
+
+    const originalBlock = document.querySelector('.education-block');
+
+    const newBlock = originalBlock.cloneNode(true);
+
+    newBlock.querySelectorAll('input, textarea').forEach(function(input) {
+        input.name = input.name.replace(/\d+/, educationIndex);
+        input.value = '';
+    });
+
+    container.appendChild(newBlock);
+
+    educationIndex++;
+});
+</script>
 </body>
 </html>

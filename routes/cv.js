@@ -3,9 +3,9 @@ const router = express.Router();
 const CV = require('../models/CV');
 const User = require('../models/User');
 
-// =============================
-// CREATE CV
-// =============================
+/* =============================
+   CREATE CV
+============================= */
 
 router.get('/create', async (req, res) => {
     try {
@@ -26,19 +26,15 @@ router.post('/create', async (req, res) => {
             phone,
             email,
             location,
-            eduSchool,
-            eduDegree,
-            eduLocation,
-            eduStartYear,
-            eduEndYear,
-            eduDetails,
             expCompany,
             expRole,
             expLocation,
             expStartYear,
             expEndYear,
             expDetails,
-            skills
+            skills,
+            languages,
+            certifications
         } = req.body;
 
         if (!fullName || !jobTitle || !email) {
@@ -57,14 +53,7 @@ router.post('/create', async (req, res) => {
             phone,
             email,
             location,
-            education: {
-                school: eduSchool,
-                degree: eduDegree,
-                location: eduLocation,
-                startYear: eduStartYear,
-                endYear: eduEndYear,
-                details: eduDetails
-            },
+            education: req.body.education || [],
             experience: {
                 company: expCompany,
                 role: expRole,
@@ -73,7 +62,9 @@ router.post('/create', async (req, res) => {
                 endYear: expEndYear,
                 details: expDetails
             },
-            skills
+            skills,
+            languages,
+            certifications
         });
 
         await User.findByIdAndUpdate(req.userId, {
@@ -88,27 +79,27 @@ router.post('/create', async (req, res) => {
     }
 });
 
-// =============================
-// LIST CVs
-// =============================
+/* =============================
+   LIST CVs
+============================= */
 
 router.get('/my-cvs', async (req, res) => {
     try {
         const user = await User.findById(req.userId);
         const cvs = await CV.find({ user: req.userId }).sort({ createdAt: -1 });
-
         const selectedTemplate = req.query.tpl || 'classic';
 
         return res.render('my-cvs', { user, cvs, selectedTemplate });
+
     } catch (err) {
         console.error(err);
         return res.redirect('/dashboard');
     }
 });
 
-// =============================
-// EDIT CV
-// =============================
+/* =============================
+   EDIT CV
+============================= */
 
 router.get('/:id/edit', async (req, res) => {
     try {
@@ -127,10 +118,33 @@ router.get('/:id/edit', async (req, res) => {
 
 router.post('/:id/edit', async (req, res) => {
     try {
-        await CV.findOneAndUpdate(
-            { _id: req.params.id, user: req.userId },
-            req.body
-        );
+        const cv = await CV.findOne({ _id: req.params.id, user: req.userId });
+
+        if (!cv) return res.redirect('/cv/my-cvs');
+
+        cv.fullName = req.body.fullName;
+        cv.jobTitle = req.body.jobTitle;
+        cv.summary = req.body.summary;
+        cv.phone = req.body.phone;
+        cv.email = req.body.email;
+        cv.location = req.body.location;
+
+        cv.education = req.body.education || [];
+
+        cv.experience = {
+            company: req.body.expCompany,
+            role: req.body.expRole,
+            location: req.body.expLocation,
+            startYear: req.body.expStartYear,
+            endYear: req.body.expEndYear,
+            details: req.body.expDetails
+        };
+
+        cv.skills = req.body.skills;
+        cv.languages = req.body.languages;
+        cv.certifications = req.body.certifications;
+
+        await cv.save();
 
         return res.redirect('/cv/my-cvs');
 
@@ -140,9 +154,9 @@ router.post('/:id/edit', async (req, res) => {
     }
 });
 
-// =============================
-// PREVIEW CV WITH TEMPLATE
-// =============================
+/* =============================
+   PREVIEW CV
+============================= */
 
 router.get('/:id', async (req, res) => {
     try {
@@ -151,7 +165,6 @@ router.get('/:id', async (req, res) => {
 
         if (!cv) return res.redirect('/cv/my-cvs');
 
-        // Premium expiry enforcement
         let isPremium = false;
 
         if (user.isPremium && user.premiumExpiry) {
@@ -165,14 +178,12 @@ router.get('/:id', async (req, res) => {
             }
         }
 
-        // Read template from query
         let selectedTemplate = 'classic';
 
         if (isPremium && req.query.tpl) {
             selectedTemplate = req.query.tpl;
         }
 
-        // Render correct template
         if (selectedTemplate === 'modern') {
             return res.render('cv-preview-modern', { user, cv, isPremium });
         }

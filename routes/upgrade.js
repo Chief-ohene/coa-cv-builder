@@ -32,7 +32,34 @@ router.post('/paystack/initiate', async (req, res) => {
     try {
         const user = await User.findById(req.userId);
 
-        const amountGHS = 40; // monthly price
+        // Pricing
+        const normalAmountGHS = 40;
+
+        // Promo handling (normalize: remove spaces, uppercase)
+        const rawPromo = (req.body.promoCode || '').toString();
+        const enteredPromo = rawPromo.replace(/\s+/g, '').trim().toUpperCase();
+
+        const promoFromEnv = (process.env.PROMO_CODE || '').replace(/\s+/g, '').trim().toUpperCase();
+        const promoExpiry = process.env.PROMO_EXPIRY ? new Date(process.env.PROMO_EXPIRY) : null;
+
+        const discountAmountGHS = Number(process.env.PROMO_DISCOUNT_AMOUNT_GHS || 0);
+
+        let amountGHS = normalAmountGHS;
+        let promoCodeUsed = null;
+
+        const now = new Date();
+        const promoValid =
+            promoFromEnv &&
+            enteredPromo &&
+            enteredPromo === promoFromEnv &&
+            discountAmountGHS > 0 &&
+            (!promoExpiry || now <= promoExpiry);
+
+        if (promoValid) {
+            amountGHS = discountAmountGHS;
+            promoCodeUsed = enteredPromo;
+        }
+
         const amountPesewas = amountGHS * 100;
 
         const response = await axios.post(
@@ -43,7 +70,8 @@ router.post('/paystack/initiate', async (req, res) => {
                 currency: 'GHS',
                 callback_url: process.env.PAYSTACK_CALLBACK_URL,
                 metadata: {
-                    userId: user._id.toString()
+                    userId: user._id.toString(),
+                    promoCodeUsed: promoCodeUsed
                 }
             },
             {
@@ -62,6 +90,7 @@ router.post('/paystack/initiate', async (req, res) => {
         }
 
         return res.redirect(data.data.authorization_url);
+
     } catch (err) {
         console.error('Paystack init exception:', err.response ? err.response.data : err);
         return res.redirect('/upgrade?status=failed');
@@ -95,6 +124,7 @@ router.get('/paystack/callback', async (req, res) => {
 
         // ✅ Get userId from metadata
         const userId = data.data.metadata.userId;
+        const promoCodeUsed = data.data.metadata ? data.data.metadata.promoCodeUsed : null;
 
         if (!userId) {
             console.error('No userId found in metadata');
@@ -115,6 +145,10 @@ router.get('/paystack/callback', async (req, res) => {
 
         user.isPremium = true;
         user.premiumExpiry = expiry;
+
+        if (promoCodeUsed) {
+    user.promoCodeUsed = promoCodeUsed;
+}
 
         await user.save();
 
